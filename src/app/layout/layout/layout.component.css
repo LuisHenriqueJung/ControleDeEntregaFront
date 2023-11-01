@@ -1,0 +1,20 @@
+.layout-content {
+  display: block;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.navbar-clip {
+  z-index: -1;
+  border-radius: 0 0 100% 100%/0 0 3vw 3vw;
+  position: absolute;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  height: 20rem;
+  width:  -webkit-fill-available;
+  margin-top: -2px;
+  margin-left: -18px;
+}

@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
+import { EntregaService } from './entrega.service';
+import { EmpregadosService } from './empregados/empregados.service';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ControleDeEntregaFront';
+
+  constructor() {
+
+  }
+
+
 }
+
+

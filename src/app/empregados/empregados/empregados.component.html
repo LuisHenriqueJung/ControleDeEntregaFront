@@ -1,0 +1,96 @@
+<div class="content__header content__boxed overlapping">
+  <div class="content__wrap">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a class="text-white-alpha-90" href="./index.html">EPIs</a></li>
+        <li class="breadcrumb-item active text-white-alpha-90" aria-current="page">Controle de entrega</li>
+      </ol>
+    </nav>
+    <!-- END : Breadcrumb -->
+
+    <h1 class="page-title mb-0 mt-2 text-white-alpha-90">Controle de entrega</h1>
+
+    <p class="lead">
+
+    </p>
+
+  </div>
+
+</div>
+
+<div class="my-card col-12 mb-3">
+  <div class="md:col-6 col-12 p-fluid">
+    <label>Empresa</label>
+    <input type="text" pInputText />
+  </div>
+
+  <div class="md:col-6 col-12 p-fluid">
+    <label>Funcionario</label>
+    <input type="text" pInputText />
+  </div>
+</div>
+
+<div class="my-card col-12">
+  <p-table responsiveLayout="stack" [breakpoint]="'960px'" #dt1 [globalFilterFields]="['nome']" [value]="empregados">
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Id</th>
+        <th>Nome</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-empregado>
+      <tr style="cursor: pointer;" (click)="selectFinger(empregado)">
+        <td>{{ empregado.id }}</td>
+        <td>{{ empregado.nome }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+{{MENSAGEM}}
+<p-dialog header="Biometria" [(visible)]="visible" [style]="{width: '40vw'}" [modal]="true"
+  [breakpoints]="{ '960px': '98vw' }">
+  <div class="grid col-12 justify-content-center">
+
+    <div class="biometric_hand_e col-5">
+      <div class="finger_1e finger">
+        <img src="/assets/img/dedo1ecapture.png" alt="" (click)="passToValidate('d2')" style="cursor: pointer;">
+      </div>
+      <div class="finger_2e finger">
+        <img src="/assets/img/dedo2ecapture.png" alt="" (click)="passToValidate('d2')" style="cursor: pointer;">
+      </div>
+      <div class="finger_3e finger">
+        <img src="/assets/img/dedo3ecapture.png" alt="" (click)="passToValidate('d3')" style="cursor: pointer;">
+      </div>
+      <div class="finger_4e finger">
+        <img src="/assets/img/dedo4ecapture.png" alt="" (click)="passToValidate('d4')" style="cursor: pointer;">
+      </div>
+      <div class="finger_5e finger">
+        <img src="/assets/img/dedo5ecapture.png" alt="" (click)="passToValidate('d5')" style="cursor: pointer;">
+      </div>
+    </div>
+    <div class="biometric_hand_d col-5">
+      <div class="finger_1d finger">
+        <img src="/assets/img/dedo1dcapture.png" alt="" (click)="passToValidate('d2')" style="cursor: pointer;">
+      </div>
+      <div class="finger_2d finger">
+        <img src="/assets/img/dedo2dcapture.png" alt="" (click)="passToValidate('d2')" style="cursor: pointer;">
+      </div>
+      <div class="finger_3d finger">
+        <img src="/assets/img/dedo3dcapture.png" alt="" (click)="passToValidate('d3')" style="cursor: pointer;">
+      </div>
+      <div class="finger_4d finger">
+        <img src="/assets/img/dedo4dcapture.png" alt="" (click)="passToValidate('d4')" style="cursor: pointer;">
+      </div>
+      <div class="finger_5d finger">
+        <img src="/assets/img/dedo5dcapture.png" alt="" (click)="passToValidate('d5')" style="cursor: pointer;">
+      </div>
+    </div>
+  </div>
+  <p-dropdown appendTo="body" [options]="fingers" optionLabel="name"
+    (onChange)="passToValidate($event.value!.code)"></p-dropdown>
+</p-dialog>

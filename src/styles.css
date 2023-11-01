@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "/node_modules/primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
+img {
+  max-width: 100%; /* or max-width: 100%; */
+  height: auto;
+}
+
+
+
+body{
+  margin: 0;
+  background-color: #EDF1F6;
+  font-family: var(--bs-font-sans-serif);
+}
+
+:root{
+ --yellow:#EFE52C;
+ --primary-color: #25476A;
+ --sidenav-width: 14rem;
+ --sidenav-collapsed-width: 4rem;
+ --bs-font-sans-serif: "Poppins","Open Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
