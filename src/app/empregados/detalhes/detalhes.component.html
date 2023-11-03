@@ -1,2 +1,68 @@
-<p>detalhes works!</p>
+<div class="card mb-4">
+  <div class="card-body flex justify-content-between">
+      <figure class="m-0">
+          <div class="d-inline-flex align-items-center position-relative  mb-3">
+              <div class="flex-shrink-0">
+                  <img class="border-circle" src="./assets/img/profile-photos/5.png" alt="Profile Picture" loading="lazy">
+              </div>
+              <div class="flex-grow-1 ms-4">
+                  <a href="void()" class="h3 btn-link">{{empregadoSelecionado.nome}}</a>
+                  <p class="text-muted m-0">Cargo: {{empregadoSelecionado.cargo}}</p>
+                  <p class="text-muted">Nascimento:{{empregadoSelecionado.nascimento | date: 'dd/mm/yyy'}}</p>
+              </div>
+          </div>
+      </figure>
+      <div class=" justify-content-between">
+          <button pButton class="mr-2 p-button-">Cadastrar biometria</button>
+      </div>
+  </div>
+</div>
+<div class="card mb-4">
+  <div class="card-body">
+
+    <h5 class="card-title">Troca de EPIs</h5>
+    <div class="col-12">
+      <p-button  size="small" label="Incluir" severity="success" icon="pi pi-plus"></p-button>
+      <p-button  size="small" class="ml-2" label="Excluir/Anular" severity="danger" icon="pi pi-trash"></p-button>
+      <p-button  size="small" class="ml-2" label="Confirmar" icon="pi pi-angle-double-up"></p-button>
+      <p-button  size="small" class="ml-2" label="Revisar" icon="pi pi-refresh"></p-button>
+      <p-button  size="small" class="ml-2" label="Devolver" icon="pi pi-angle-double-down"></p-button>
+      <p-button  size="small" class="ml-2" label="Imprimir" icon="pi pi-print"></p-button>
+
+    </div>
+    <div class="col-12">
+      <p-table #dt1 [value]="empregadoEPIs"  styleClass="p-datatable-gridlines"  [(selection)]="episParaEntrega" dataKey="id" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th>EPI</th>
+                <th>Data prevista</th>
+                <th>Motivo</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-empregadoEpi>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="empregadoEpi"></p-tableCheckbox>
+                </td>
+                <td>
+                  <div>{{empregadoEpi.epi.nome}}</div>
+                  <div>CA:{{empregadoEpi.epi.CA}} </div>
+                  <div>{{empregadoEpi.epi.quantidade}}</div>
+                  <div>{{empregadoEpi.epi.dataEntrega | date: 'dd/mm/yyy'}}</div>
+                </td>
+                <td>{{empregadoEpi.dataPrevista | date: 'dd/mm/yyy'}}</td>
+                <td>{{empregadoEpi.motivo}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+              Total de {{empregadoEPIs ? empregadoEPIs.length : 0 }} EPIs/Materiais para entrega/confirmação.
+          </div>
+      </ng-template>
+    </p-table>
+    </div>
+  </div></div>
 

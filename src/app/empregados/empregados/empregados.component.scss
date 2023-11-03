@@ -1,17 +1,14 @@
-.breadcrumb{
+.my-path{
+  list-style: none;
+  display: flex;
   color: white;
-}
-.breadcrumb-item{
-  color: white;
+  align-items: baseline;
 }
 
-.my-card{
-  border-radius: 14px;
-  background-color: white;
-  display: block;
+hr{
+  margin: 0;
+  margin-bottom: 0.5rem;
 }
-
-
 
 .p-panel .p-panel-content{
   padding: 0;

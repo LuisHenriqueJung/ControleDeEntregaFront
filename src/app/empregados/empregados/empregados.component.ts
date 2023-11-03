@@ -1,6 +1,9 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { EmpregadosService } from '../empregados.service';
 import { Table } from 'primeng/table';
+import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { Empregado } from 'src/app/model/empregado';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-empregados',
@@ -8,14 +11,26 @@ import { Table } from 'primeng/table';
   styleUrls: ['./empregados.component.scss']
 })
 export class EmpregadosComponent implements OnInit {
-  empregados: [] = []
+  empregados: any[] = []
   MENSAGEM = ""
   visible = false
-  empregadoSelecionado : any
+  empregadoSelecionado: Empregado = {
+    id:1,
+    nome: 'João',
+    empresa: 'Consetra',
+    setor: 'Produção',
+    matricula: '8346835409',
+    sexo: 'Masculino',
+    cargo:'Auxiliar de produção'
+  }
   fingers: any[]| undefined;
 
 
-  constructor(private empregadosService: EmpregadosService, private zone: NgZone) {
+
+  suggestions: Empregado[] = []
+
+
+  constructor(private empregadosService: EmpregadosService, private zone: NgZone,private router: Router) {
     this.window['componentRef'] = {
       zone: this.zone,
       componentFn: [() => this.validationSuccess(), () => this.validationFail()],
@@ -32,8 +47,20 @@ export class EmpregadosComponent implements OnInit {
       { name: 'Mindinho', code: 'd5' }
   ];
   }
-  clear(table: Table) {
-    table.clear();
+
+  employerSelected(event: any){
+    this.empregadoSelecionado = event
+  }
+
+  search(event: AutoCompleteCompleteEvent){
+    let filtered: any[] = [];
+    for (let i = 0; i < (this.empregados as any[]).length; i++) {
+      let country = (this.empregados as any[])[i];
+      if (country.nome.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
+        filtered.push(country);
+      }
+  }
+  this.suggestions = filtered
   }
 
   get window() {
@@ -51,11 +78,7 @@ export class EmpregadosComponent implements OnInit {
   }
 
   listEmpregados() {
-    this.empregadosService.listEmpregados().subscribe({
-      next: (empregados) => {
-        this.empregados = empregados
-      }
-    })
+    this.empregados = this.empregadosService.listEmpregados()
   }
 
   selectFinger(empregado: any) {
@@ -80,6 +103,10 @@ export class EmpregadosComponent implements OnInit {
     })
 
   }
+
+onPageChange($event:any){
+
+}
 }
 
 interface WebAppInterface {

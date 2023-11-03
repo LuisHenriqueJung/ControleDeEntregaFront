@@ -20,36 +20,29 @@
 
 </div>
 
-<div class="my-card col-12 mb-3">
-  <div class="md:col-6 col-12 p-fluid">
-    <label>Empresa</label>
-    <input type="text" pInputText />
-  </div>
+<div class="card mb-4">
+  <div class="card-body">
 
-  <div class="md:col-6 col-12 p-fluid">
-    <label>Funcionario</label>
-    <input type="text" pInputText />
+    <h5 class="card-title">Filtros</h5>
+    <div class="flex flex-wrap">
+      <div class="md:col-4 col-12 p-fluid">
+        <label for="_dm-vCustomLastname" class="form-label">Empresa</label>
+        <input  type="text" pInputText class="p-inputtext-sm" required>
+      </div>
+      <div class="md:col-4 col-12 p-fluid">
+        <label for="_dm-vCustomLastname" class="form-label">Setor</label>
+        <input  type="text" pInputText class="p-inputtext-sm" required>
+      </div>
+
+      <div class="md:col-4 col-12 p-fluid">
+        <label for="_dm-vCustomLastname" class="form-label">Empregado</label>
+        <p-autoComplete  class="p-inputtext-sm" (onSelect)="employerSelected($event)"  [suggestions]="suggestions" (completeMethod)="search($event)" field="nome"></p-autoComplete>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="my-card col-12">
-  <p-table responsiveLayout="stack" [breakpoint]="'960px'" #dt1 [globalFilterFields]="['nome']" [value]="empregados">
-
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Id</th>
-        <th>Nome</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-empregado>
-      <tr style="cursor: pointer;" (click)="selectFinger(empregado)">
-        <td>{{ empregado.id }}</td>
-        <td>{{ empregado.nome }}</td>
-      </tr>
-    </ng-template>
-  </p-table>
-
-</div>
+<app-detalhes *ngIf="empregadoSelecionado" [empregadoSelecionado]="empregadoSelecionado"></app-detalhes>
 
 {{MENSAGEM}}
 <p-dialog header="Biometria" [(visible)]="visible" [style]="{width: '40vw'}" [modal]="true"

@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { DetalhesComponent } from './detalhes/detalhes.component';
 import { CardModule } from 'primeng/card'
 import { PanelModule } from 'primeng/panel';
+import { PaginatorModule } from 'primeng/paginator';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 @NgModule({
   declarations: [
     EmpregadosComponent,
@@ -28,8 +30,9 @@ import { PanelModule } from 'primeng/panel';
     DropdownModule,
     CardModule,
     PanelModule,
-    InputTextModule
-
+    InputTextModule,
+    PaginatorModule,
+    AutoCompleteModule
   ]
 })
 export class EmpregadosModule { }

@@ -1,8 +1,9 @@
+
 .active_max{
   color: white;
   font-weight: 700;
   background-color: var(--primary-color);
-  border-radius: 0.4rem;
+  border-radius: 8px;
   box-shadow: none;
   padding: 0.7rem;
   margin: 0 0.5rem 0 0.5rem;
@@ -29,7 +30,7 @@
   margin: 0 0.5rem 0 0.5rem;
   color: white;
   padding: 0.7rem;
-  border-radius: 0.4rem;
+  border-radius: 8px;
   background-color: var(--primary-color);
   font-weight: 700;
   box-shadow: none;
@@ -39,7 +40,7 @@
 
 .inactive_max{
   color: grey;
-  border-radius: 0.4rem;
+  border-radius: 8px;
   box-shadow: none;
   padding: 0.7rem;
   margin: 0 0.5rem 0 0.5rem;
@@ -71,7 +72,7 @@
   margin: 0 0.5rem 0 0.5rem;
   color: grey;
   padding: 0.7rem;
-  border-radius: 0.4rem;
+  border-radius: 8px;
   box-shadow: none;
   transition: width 2s;
 }

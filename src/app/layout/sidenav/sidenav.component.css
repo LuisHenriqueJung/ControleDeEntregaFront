@@ -2,11 +2,12 @@
   .sidenav {
     display: none;
     justify-content: start;
+    min-height: 100%;
   }
   .is-expanded {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+
     width: var(--sidenav-width);
     background-color: white;
     border-top-right-radius: 18px;
@@ -38,7 +39,7 @@
   .sidenav {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100%;
     width: var(--sidenav-collapsed-width);
     background-color: white;
     border-top-right-radius: 18px;
