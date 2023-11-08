@@ -1,6 +1,5 @@
 <div class="content__header content__boxed overlapping">
   <div class="content__wrap">
-
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
@@ -9,81 +8,76 @@
       </ol>
     </nav>
     <!-- END : Breadcrumb -->
-
     <h1 class="page-title mb-0 mt-2 text-white-alpha-90">Controle de entrega</h1>
-
     <p class="lead">
-
     </p>
-
   </div>
-
 </div>
 
 <div class="card mb-4">
   <div class="card-body">
-
-    <h5 class="card-title">Filtros</h5>
-    <div class="flex flex-wrap">
-      <div class="md:col-4 col-12 p-fluid">
-        <label for="_dm-vCustomLastname" class="form-label">Empresa</label>
-        <input  type="text" pInputText class="p-inputtext-sm" required>
+    <div class="flex justify-content-between">
+      <h5 class="card-title">Filtros</h5>
+      <p-button size="small" icon="pi {{!filtersVisible ? 'pi-angle-down' : 'pi-angle-up'}}" [text]="true"
+        (onClick)="changeFilterVisibility()"></p-button>
+    </div>
+    <div class="flex flex-wrap" [@slideInOut]="filtersVisible ? 'in' : 'out'">
+      <!--<div class="md:col-4 col-12 p-fluid">
+        <label for="local_filter" class="form-label">Local de atendimento</label>
+        <p-dropdown #local_filter class="p-inputtext-sm" [options]="locaisDeEstoque" [filter]="true" filterBy="nome"
+          optionLabel="nome" [showClear]="true" placeholder="Selecione um local de atendimento"></p-dropdown>
+      </div>-->
+      <div class="md:col-3 col-12 p-fluid">
+        <label for="empresa_filter" class="form-label">Empresa</label>
+        <p-autoComplete #empresa_filter class="p-inputtext-sm" (onSelect)="empresaSelected($event)"
+          [suggestions]="empresasSuggestions" (completeMethod)="searchEmpresa($event)" [forceSelection]="true"
+          [showEmptyMessage]="true" placeholder="Buscar empresa" field="denominacao">
+          <ng-template let-empresa pTemplate="item">
+            <div class="flexflex-column align-items-start gap-2">
+              <div class=" h4 "><strong>{{ empresa.denominacao }}</strong></div>
+              <div>Cidade: {{empresa.cidade!.nome}}</div>
+              <div *ngIf="empresa.inscricaoEmpregadorESocial">{{empresa.pessoaEmpregadorESocial}}: {{empresa.inscricaoEmpregadorESocial}}</div>
+              <div *ngIf="!empresa.inscricaoEmpregadorESocial">CNPJ: {{empresa.cnpj}}</div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
       </div>
-      <div class="md:col-4 col-12 p-fluid">
-        <label for="_dm-vCustomLastname" class="form-label">Setor</label>
-        <input  type="text" pInputText class="p-inputtext-sm" required>
+      <div class="md:col-3 col-12 p-fluid">
+        <label  for="setor_filter" class="form-label">Setor</label>
+        <p-autoComplete [disabled]="!empresaFilterSelectedId" #setor_filter class="p-inputtext-sm" (onSelect)="setorSelected($event)"
+          [suggestions]="setoresSuggestions" (completeMethod)="searchSetor($event)" [forceSelection]="true"
+          [showEmptyMessage]="true" placeholder="Buscar Setor" field="nome">
+          <ng-template let-setor pTemplate="item">
+            <div class="flexflex-column align-items-start gap-2">
+              <div>{{ setor.nome }}</div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
       </div>
-
-      <div class="md:col-4 col-12 p-fluid">
-        <label for="_dm-vCustomLastname" class="form-label">Empregado</label>
-        <p-autoComplete  class="p-inputtext-sm" (onSelect)="employerSelected($event)"  [suggestions]="suggestions" (completeMethod)="search($event)" field="nome"></p-autoComplete>
+      <div class="md:col-3 col-12 p-fluid">
+        <label for="vinculo_filter" class="form-label">Status do empregado</label>
+        <p-multiSelect #vinculo_filter [options]="statusDoEmpregado" [(ngModel)]="selectedStatusDoEmpregado" class="p-inputtext-sm" styles="height: 37px;"
+          placeholder="Filtrar por status" display="chip" optionLabel="nome"></p-multiSelect>
+      </div>
+      <div class="md:col-3 col-12 p-fluid">
+        <label for="empregado_filter" class="form-label">Empregado</label>
+        <p-autoComplete #empregado_filter class="p-inputtext-sm" [disabled]="empregados.length == 0"
+          (onSelect)="employerSelected($event)" [suggestions]="empregadosSuggestions"
+          (completeMethod)="searchEmpregado($event)" [forceSelection]="true" [showEmptyMessage]="true"
+          placeholder="Buscar empregado" field="nome">
+          <ng-template let-empregado pTemplate="item">
+            <div class="flexflex-column align-items-start gap-2">
+              <div class=" h4 "><strong>{{ empregado.nome }}</strong></div>
+              <div>Empresa: {{empregado.razaoSocial}}</div>
+              <div>Setor: {{empregado.setor}}</div>
+              <div>Cargo: {{empregado.cargo}}</div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
       </div>
     </div>
   </div>
 </div>
+<!--<div *ngIf="filtersVisible"><h1>Use os filtros acima para buscar um empregado</h1></div>-->
+<router-outlet></router-outlet>
 
-<app-detalhes *ngIf="empregadoSelecionado" [empregadoSelecionado]="empregadoSelecionado"></app-detalhes>
-
-{{MENSAGEM}}
-<p-dialog header="Biometria" [(visible)]="visible" [style]="{width: '40vw'}" [modal]="true"
-  [breakpoints]="{ '960px': '98vw' }">
-  <div class="grid col-12 justify-content-center">
-
-    <div class="biometric_hand_e col-5">
-      <div class="finger_1e finger">
-        <img src="/assets/img/dedo1ecapture.png" alt="" (click)="passToValidate('d2')" style="cursor: pointer;">
-      </div>
-      <div class="finger_2e finger">
-        <img src="/assets/img/dedo2ecapture.png" alt="" (click)="passToValidate('d2')" style="cursor: pointer;">
-      </div>
-      <div class="finger_3e finger">
-        <img src="/assets/img/dedo3ecapture.png" alt="" (click)="passToValidate('d3')" style="cursor: pointer;">
-      </div>
-      <div class="finger_4e finger">
-        <img src="/assets/img/dedo4ecapture.png" alt="" (click)="passToValidate('d4')" style="cursor: pointer;">
-      </div>
-      <div class="finger_5e finger">
-        <img src="/assets/img/dedo5ecapture.png" alt="" (click)="passToValidate('d5')" style="cursor: pointer;">
-      </div>
-    </div>
-    <div class="biometric_hand_d col-5">
-      <div class="finger_1d finger">
-        <img src="/assets/img/dedo1dcapture.png" alt="" (click)="passToValidate('d2')" style="cursor: pointer;">
-      </div>
-      <div class="finger_2d finger">
-        <img src="/assets/img/dedo2dcapture.png" alt="" (click)="passToValidate('d2')" style="cursor: pointer;">
-      </div>
-      <div class="finger_3d finger">
-        <img src="/assets/img/dedo3dcapture.png" alt="" (click)="passToValidate('d3')" style="cursor: pointer;">
-      </div>
-      <div class="finger_4d finger">
-        <img src="/assets/img/dedo4dcapture.png" alt="" (click)="passToValidate('d4')" style="cursor: pointer;">
-      </div>
-      <div class="finger_5d finger">
-        <img src="/assets/img/dedo5dcapture.png" alt="" (click)="passToValidate('d5')" style="cursor: pointer;">
-      </div>
-    </div>
-  </div>
-  <p-dropdown appendTo="body" [options]="fingers" optionLabel="name"
-    (onChange)="passToValidate($event.value!.code)"></p-dropdown>
-</p-dialog>

@@ -2,6 +2,6 @@
 
 <div routerLink="{{route}}" class="cursor-pointer"  [ngClass]="{'active_max': isActiveRoute() && isExpanded,'active_min': isActiveRoute() && !isExpanded
 ,'inactive_max': !isActiveRoute() && isExpanded,'inactive_min': !isActiveRoute() && !isExpanded}">
-  <i class="{{icon}} fs-5 me-2"></i>
-  <a routerLink="{{route}}">{{label}}</a>
+  <i class="{{icon}} fs-5 "></i>
+  <a class="ml-2" routerLink="{{route}}">{{label}}</a>
 </div>

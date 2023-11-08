@@ -1,68 +1,191 @@
-<div class="card mb-4">
-  <div class="card-body flex justify-content-between">
-      <figure class="m-0">
-          <div class="d-inline-flex align-items-center position-relative  mb-3">
-              <div class="flex-shrink-0">
-                  <img class="border-circle" src="./assets/img/profile-photos/5.png" alt="Profile Picture" loading="lazy">
-              </div>
-              <div class="flex-grow-1 ms-4">
-                  <a href="void()" class="h3 btn-link">{{empregadoSelecionado.nome}}</a>
-                  <p class="text-muted m-0">Cargo: {{empregadoSelecionado.cargo}}</p>
-                  <p class="text-muted">Nascimento:{{empregadoSelecionado.nascimento | date: 'dd/mm/yyy'}}</p>
-              </div>
-          </div>
-      </figure>
-      <div class=" justify-content-between">
-          <button pButton class="mr-2 p-button-">Cadastrar biometria</button>
+<div class="card mb-4 ">
+  <div class="card-body flex flex-wrap justify-content-between">
+    <div class="d-inline-flex align-items-center position-relative  mb-3">
+      <div class="flex-shrink-0">
+        <p-skeleton *ngIf="loading" shape="circle" size="6rem" styleClass="mr-2"></p-skeleton>
+        <img *ngIf="!empregado.foto && !loading" class="border-circle"
+          [ngClass]="{'img-lg ': (lg$ | async) || (xl$| async) || (xl2$ | async),'img-md':(sm$  | async) || (md$ |async)}"
+          src="./assets/img/profile-photos/5.png" alt="Profile Picture" loading="lazy">
+        <img *ngIf="empregado.foto && !loading" class="border-circle"
+          [ngClass]="{'img-lg ': (lg$ | async) || (xl$| async) || (xl2$ | async),'img-md':(sm$  | async) || (md$ |async)}"
+          [src]="getFoto" alt="Profile Picture" loading="lazy">
       </div>
+      <div class="flex-grow-1 ms-4">
+        <p-skeleton *ngIf="loading" width="25rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton *ngIf="loading" width="20rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton *ngIf="loading" width="15rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton *ngIf="loading" width="10rem" styleClass="mb-2"></p-skeleton>
+        <a *ngIf="!loading" href="void()" class="h3 btn-link">{{empregado.nome}}</a>
+        <p *ngIf="!loading" class="text-muted m-0">Matrícula: {{empregado.matricula}}</p>
+        <p *ngIf="!loading" class="text-muted m-0">Setor: {{empregado.setor}}</p>
+        <p *ngIf="!loading" class="text-muted m-0">{{empregado.titleGhePosicaoCargo}}: {{empregado.ghePosicaoCargo}}</p>
+        <p *ngIf="!loading" class="text-muted">Idade: {{empregado.idade}}</p>
+      </div>
+    </div>
+    <div class="grid col-12 md:col-6 justify-content-end">
+      <p-button  [text]="true" [raised]="true" (onClick)="dialogFingerVisible = !dialogFingerVisible" label="Cadastro biométrico"></p-button>
+    </div>
   </div>
 </div>
-<div class="card mb-4">
+<div class="card mb-4 fadeinright animation-duration-200">
   <div class="card-body">
-
     <h5 class="card-title">Troca de EPIs</h5>
-    <div class="col-12">
-      <p-button  size="small" label="Incluir" severity="success" icon="pi pi-plus"></p-button>
-      <p-button  size="small" class="ml-2" label="Excluir/Anular" severity="danger" icon="pi pi-trash"></p-button>
-      <p-button  size="small" class="ml-2" label="Confirmar" icon="pi pi-angle-double-up"></p-button>
-      <p-button  size="small" class="ml-2" label="Revisar" icon="pi pi-refresh"></p-button>
-      <p-button  size="small" class="ml-2" label="Devolver" icon="pi pi-angle-double-down"></p-button>
-      <p-button  size="small" class="ml-2" label="Imprimir" icon="pi pi-print"></p-button>
-
+    <div class="col-12 gap-1 grid  p-fluid" *ngIf="(lg$ | async) || (xl$| async) || (xl2$ | async)">
+      <p-button size="small" label="Incluir" severity="success" icon="pi pi-plus"
+        (onClick)="dialogIncluirVisible = true"></p-button>
+      <p-button size="small" label="Anular" severity="danger" icon="pi pi-trash"></p-button>
+      <p-button size="small" label="Confirmar" icon="pi pi-angle-double-up"
+        (onClick)="confirmarEntregaEpis('')"></p-button>
+      <p-button size="small" label="Revisar" icon="pi pi-refresh"></p-button>
+      <p-button size="small" label="Devolver" icon="pi pi-angle-double-down"></p-button>
     </div>
-    <div class="col-12">
-      <p-table #dt1 [value]="empregadoEPIs"  styleClass="p-datatable-gridlines"  [(selection)]="episParaEntrega" dataKey="id" [tableStyle]="{'min-width': '50rem'}">
+    <div class="col-12 gap-1 grid p-fluid" *ngIf="(sm$  | async) || (md$ |async)">
+      <p-button size="small" severity="success" icon="pi pi-plus" (onClick)="dialogIncluirVisible = true"></p-button>
+      <p-button size="small" severity="danger" icon="pi pi-trash"></p-button>
+      <p-button size="small" icon="pi pi-angle-double-up" (onClick)="confirmarEntregaEpis('')"></p-button>
+      <p-button size="small" icon="pi pi-refresh"></p-button>
+      <p-button size="small" icon="pi pi-angle-double-down"></p-button>
+    </div>
+    <div>
+
+      <p-table #dt1 [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [value]="empregadoEPIs"
+        [(selection)]="episParaEntrega" dataKey="id">
         <ng-template pTemplate="header">
-            <tr>
-                <th style="width: 4rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-                <th>EPI</th>
-                <th>Data prevista</th>
-                <th>Motivo</th>
-            </tr>
+          <tr *ngIf="(lg$ | async) || (xl$| async) || (xl2$ | async)">
+            <th style="width: 4rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th>Item</th>
+            <th>Qntd.</th>
+            <th>CA</th>
+            <th>Data entrega</th>
+            <th>Motivo</th>
+            <th>Próxima troca</th>
+          </tr>
         </ng-template>
         <ng-template pTemplate="body" let-empregadoEpi>
-            <tr>
-                <td>
-                    <p-tableCheckbox [value]="empregadoEpi"></p-tableCheckbox>
-                </td>
-                <td>
-                  <div>{{empregadoEpi.epi.nome}}</div>
-                  <div>CA:{{empregadoEpi.epi.CA}} </div>
-                  <div>{{empregadoEpi.epi.quantidade}}</div>
-                  <div>{{empregadoEpi.epi.dataEntrega | date: 'dd/mm/yyy'}}</div>
-                </td>
-                <td>{{empregadoEpi.dataPrevista | date: 'dd/mm/yyy'}}</td>
-                <td>{{empregadoEpi.motivo}}</td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-          <div class="flex align-items-center justify-content-between">
-              Total de {{empregadoEPIs ? empregadoEPIs.length : 0 }} EPIs/Materiais para entrega/confirmação.
-          </div>
-      </ng-template>
-    </p-table>
-    </div>
-  </div></div>
+          <tr *ngIf="(lg$ | async) || (xl$| async) || (xl2$ | async)">
+            <td *ngIf="loading"><p-skeleton></p-skeleton></td>
+            <td *ngIf="loading"><p-skeleton></p-skeleton></td>
+            <td *ngIf="loading"><p-skeleton></p-skeleton></td>
+            <td *ngIf="loading"><p-skeleton></p-skeleton></td>
+            <td *ngIf="loading"><p-skeleton></p-skeleton></td>
+            <td *ngIf="loading"><p-skeleton></p-skeleton></td>
+            <td *ngIf="loading"><p-skeleton></p-skeleton></td>
+            <td *ngIf="!loading">
+              <p-tableCheckbox [value]="empregadoEpi"></p-tableCheckbox>
+            </td>
+            <td *ngIf="!loading">{{empregadoEpi.epi.nome}}</td>
+            <td *ngIf="!loading">{{empregadoEpi.epi.quantidade}}</td>
+            <td *ngIf="!loading">CA:{{empregadoEpi.epi.CA}} </td>
+            <td *ngIf="!loading">{{empregadoEpi.epi.dataEntrega | date: 'dd/MM/yyyy'}}</td>
+            <td *ngIf="!loading">{{empregadoEpi.motivo}}</td>
+            <td *ngIf="!loading">{{empregadoEpi.dataPrevista | date: 'dd/MM/yyyy'}}</td>
+          </tr>
+          <tr *ngIf="(sm$  | async) || (md$ |async)">
+            <div class="p-3 mb-3 border-1 border-solid border-round-sm surface-border">
+              <div><strong>Item: </strong>{{empregadoEpi.epi.nome}}</div>
+              <div>CA: {{empregadoEpi.epi.CA}} </div>
+              <div>Quantidade: {{empregadoEpi.epi.quantidade}}</div>
+              <div>Data de entrega: {{empregadoEpi.epi.dataEntrega | date: 'dd/MM/yyyy'}}</div>
 
+              <div>Próxima troca: {{empregadoEpi.dataPrevista | date: 'dd/MM/yyyy'}}</div>
+
+              <div class="flex justify-content-between">
+                <div>Motivo: {{empregadoEpi.motivo}}</div>
+                <div>
+                  <p-tableCheckbox class="m-2" [value]="empregadoEpi"></p-tableCheckbox>
+                </div>
+              </div>
+            </div>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+  </div>
+</div>
+
+
+<p-dialog header="Cadastrar EPI para entrega" [(visible)]="dialogIncluirVisible" [style]="{width: '40vw'}"
+  [modal]="true" [breakpoints]="{ '960px': '98vw' }">
+  <div class="grid col-12 justify-content-center">
+    <div class=" col-12 md:col-10 p-fluid">
+      <label for="epi" class="form-label">EPI</label>
+      <p-autoComplete #epi appendTo="body" class="p-inputtext-sm" (onSelect)="epiSelected($event)"
+        [suggestions]="epiSuggestions" (completeMethod)="searchEpi($event)" field="nome">
+        <ng-template let-epi pTemplate="item">
+          <div class="flex align-items-center gap-2">
+            <div>{{ epi.nome }} - {{epi.marca}}</div>
+          </div>
+        </ng-template>
+      </p-autoComplete>
+    </div>
+    <div class="col-12 md:col-2 p-fluid">
+      <label class="mb-2 block " for="minmax-buttons">Quantidade</label>
+      <input class="p-inputtext-sm" type="number" pInputText [(ngModel)]="quantidadeEpis" />
+    </div>
+    <div class=" col-12 md:col-6 p-fluid">
+      <label for="data_entrega" class="form-label">Data de entrega</label>
+      <p-calendar dateFormat="dd/mm/yy" class="p-inputtext-sm" #data_entrega [showButtonBar]="true"
+        appendTo="body"></p-calendar>
+    </div>
+    <div class=" col-12 md:col-6 p-fluid">
+      <label for="data_troca" class="form-label">Data prevista troca</label>
+      <p-calendar dateFormat="dd/mm/yy" class="p-inputtext-sm" #data_troca [showButtonBar]="true"
+        appendTo="body"></p-calendar>
+    </div>
+
+    <div class="col-12 p-fluid">
+      <label class="mb-2 block " for="minmax-buttons">Motivo</label>
+      <p-dropdown class="p-inputtext-sm" appendTo="body" [options]="motivos"
+        placeholder="Selecione o motivo"></p-dropdown>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="col-12">
+      <p-button icon="pi pi-check" (click)="dialogIncluirVisible = false" label="Salvar"
+        styleClass="p-button-text"></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+<p-dialog header="Biometria" [(visible)]="dialogFingerVisible" [style]="{width: '40vw'}" [modal]="true"
+  [breakpoints]="{ '1238px': '60vw','1000px':'70vw','728px':'80vw' ,'627px':'95vw'}">
+  <div class="col-12 flex justify-content-center">
+
+    <div class=" col-6" [ngClass]="{'biometric_hand_e' : !(sm$| async),'biometric_hand_e_mobile' : (sm$| async)}">
+      <div class=" finger" [ngClass]="{'finger_1e' :  !(sm$| async),'finger_1e_mobile' : (sm$| async)}">
+        <img src="/assets/img/digital/dedo1ecapture.png" alt="" (click)="confirmarEntregaEpis('d2')" style="cursor: pointer;">
+      </div>
+      <div class="finger"[ngClass]="{'finger_2e' :  !(sm$| async),'finger_2e_mobile' : (sm$| async)}">
+        <img src="/assets/img/digital/dedo2ecapture.png" alt="" (click)="confirmarEntregaEpis('d2')" style="cursor: pointer;">
+      </div>
+      <div class="finger"[ngClass]="{'finger_3e' :  !(sm$| async),'finger_3e_mobile' :(sm$| async)}">
+        <img src="/assets/img/digital/dedo3ecapture.png" alt="" (click)="confirmarEntregaEpis('d3')" style="cursor: pointer;">
+      </div>
+      <div class="finger"[ngClass]="{'finger_4e' : !(sm$| async),'finger_4e_mobile' : (sm$| async)}">
+        <img src="/assets/img/digital/dedo4ecapture.png" alt="" (click)="confirmarEntregaEpis('d4')" style="cursor: pointer;">
+      </div>
+      <div class="finger"[ngClass]="{'finger_5e' : !(sm$| async),'finger_5e_mobile' : (sm$| async)}">
+        <img src="/assets/img/digital/dedo5ecapture.png" alt="" (click)="confirmarEntregaEpis('d5')" style="cursor: pointer;">
+      </div>
+    </div>
+    <div class="col-6" [ngClass]="{'biometric_hand_d' : !(sm$| async),'biometric_hand_d_mobile' : (sm$| async)}">
+      <div class="finger" [ngClass]="{'finger_1d' : !(sm$| async),'finger_1d_mobile' : (sm$| async)}">
+        <img src="/assets/img/digital/dedo1dcapture.png" alt="" (click)="confirmarEntregaEpis('d2')" style="cursor: pointer;">
+      </div>
+      <div class="finger" [ngClass]="{'finger_2d' : !(sm$| async),'finger_2d_mobile' : (sm$| async)}">
+        <img src="/assets/img/digital/dedo2dcapture.png" alt="" (click)="confirmarEntregaEpis('d2')" style="cursor: pointer;">
+      </div>
+      <div class="finger" [ngClass]="{'finger_3d' : !(sm$| async),'finger_3d_mobile' : (sm$| async)}">
+        <img src="/assets/img/digital/dedo3dcapture.png" alt="" (click)="confirmarEntregaEpis('d3')" style="cursor: pointer;">
+      </div>
+      <div class="finger" [ngClass]="{'finger_4d' : !(sm$| async),'finger_4d_mobile' : (sm$| async)}">
+        <img src="/assets/img/digital/dedo4dcapture.png" alt="" (click)="confirmarEntregaEpis('d4')" style="cursor: pointer;">
+      </div>
+      <div class="finger" [ngClass]="{'finger_5d' : !(sm$| async),'finger_5d_mobile' : (sm$| async)}">
+        <img src="/assets/img/digital/dedo5dcapture.png" alt="" (click)="confirmarEntregaEpis('d5')" style="cursor: pointer;">
+      </div>
+    </div>
+  </div>
+</p-dialog>

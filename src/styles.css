@@ -1,11 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-@import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "/node_modules/primeflex/primeflex.css";
 @import "primeicons/primeicons.css";
 img {
   max-width: 100%; /* or max-width: 100%; */
-  height: auto;
 }
 
 button{
@@ -29,5 +27,9 @@ body{
 
 .p-autocomplete{
   height: 37px;
+}
+
+.card{
+  overflow: hidden;
 }
 

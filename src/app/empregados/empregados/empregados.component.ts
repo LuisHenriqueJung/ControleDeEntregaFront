@@ -1,117 +1,140 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { EmpregadosService } from '../empregados.service';
-import { Table } from 'primeng/table';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { Empregado } from 'src/app/model/empregado';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EmpresaService } from 'src/app/empresa/empresa.service';
+import { Empresa } from 'src/app/model/empresa';
+import { delay } from 'rxjs';
+import { SlideInOutAnimation } from 'src/app/animations/animations';
+
 
 @Component({
   selector: 'app-empregados',
   templateUrl: './empregados.component.html',
-  styleUrls: ['./empregados.component.scss']
+  styleUrls: ['./empregados.component.scss'],
+  animations: [SlideInOutAnimation]
+
 })
 export class EmpregadosComponent implements OnInit {
-  empregados: any[] = []
-  MENSAGEM = ""
-  visible = false
-  empregadoSelecionado: Empregado = {
-    id:1,
-    nome: 'João',
-    empresa: 'Consetra',
-    setor: 'Produção',
-    matricula: '8346835409',
-    sexo: 'Masculino',
-    cargo:'Auxiliar de produção'
-  }
-  fingers: any[]| undefined;
 
+  constructor(
+    private empregadosService: EmpregadosService,
+    private zone: NgZone,
+    private router: Router,
+    private empresaService: EmpresaService,
+    private route: ActivatedRoute
+  ) { }
 
-
-  suggestions: Empregado[] = []
-
-
-  constructor(private empregadosService: EmpregadosService, private zone: NgZone,private router: Router) {
-    this.window['componentRef'] = {
-      zone: this.zone,
-      componentFn: [() => this.validationSuccess(), () => this.validationFail()],
-      component: this
-    };
-  }
   ngOnInit(): void {
-    this.listEmpregados()
+    this.filtersVisible = this.router.isActive('/controle-entrega', true)
+    this.getAllLocalDeEstoque()
+    this.getStatusEmpregado()
     this.fingers = [
       { name: 'Polegar', code: 'd1' },
       { name: 'Indicador', code: 'd2' },
       { name: 'Médio', code: 'd3' },
       { name: 'Anelar', code: 'd4' },
       { name: 'Mindinho', code: 'd5' }
-  ];
+    ];
   }
 
-  employerSelected(event: any){
-    this.empregadoSelecionado = event
-  }
+  empregados: any[] = []
+  visible = false
+  empresasSuggestions: Empresa[] = []
+  setoresSuggestions: any[] = []
+  empregadosSuggestions: Empregado[] = []
+  locaisDeEstoque: any[] = []
+  selectedStatusDoEmpregado: any[] = []
+  statusDoEmpregado: any[] = []
+  filtersVisible = true
+  empresaFilterSelectedId!: number
+  setorFilterSelectedId!: number
+  fingers: any[] | undefined;
 
-  search(event: AutoCompleteCompleteEvent){
-    let filtered: any[] = [];
-    for (let i = 0; i < (this.empregados as any[]).length; i++) {
-      let country = (this.empregados as any[])[i];
-      if (country.nome.toLowerCase().indexOf(event.query.toLowerCase()) == 0) {
-        filtered.push(country);
-      }
-  }
-  this.suggestions = filtered
-  }
-
-  get window() {
-    return (window as any)
-  }
-
-  validationFail() {
-    this.visible = false
-    this.MENSAGEM = "FALHA"
-  }
-
-  validationSuccess() {
-    this.visible = false
-    this.MENSAGEM = "SUCESSO"
-  }
-
-  listEmpregados() {
-    this.empregados = this.empregadosService.listEmpregados()
-  }
-
-  selectFinger(empregado: any) {
-    this.visible = true
-    this.empregadoSelecionado = empregado
-  }
-
-  passToValidate(dedo: string) {
-    this.visible = false
-    let digital: any;
-    this.empregadosService.findeEmpregadoDigitalByIdEmpregado(this.empregadoSelecionado.id).subscribe({
+  getAllLocalDeEstoque() {
+    this.empresaService.getLocaisDeEstoque().subscribe({
       next: (r) => {
-        digital = r
-        console.warn(digital)
-        let bin = atob(digital[dedo]);
-        let bytes = [];
-        for (let i = 0; i < bin.length; i++) {
-          bytes.push(bin.charCodeAt(i));
-        }
-        Android!.validate(bytes);
+        this.locaisDeEstoque = r
       }
     })
-
   }
 
-onPageChange($event:any){
+  getStatusEmpregado() {
+    this.empregadosService.getStatusEmpregado().subscribe({
+      next: (r) => {
+        this.statusDoEmpregado = r
+        r.forEach((status: any) => {
+          if (status.nome == 'Ativos') {
+            this.selectedStatusDoEmpregado.push(status)
+          }
+        })
+      }
+    })
+  }
 
+  searchEmpresa(event: AutoCompleteCompleteEvent) {
+    if (event.query.length >= 3) {
+      this.empresaService.getAllEmpresas(event.query).pipe(delay(800)).subscribe({
+        next: (r: []) => {
+          this.empresasSuggestions = r
+        }
+      })
+    }
+  }
+
+  empresaSelected(empresaSelecionada: any) {
+    this.empresaFilterSelectedId = empresaSelecionada.value.id
+    this.empresaService.filterSetores(this.empresaFilterSelectedId).subscribe({
+      next: (r) => {
+        this.setoresSuggestions = r
+      }
+    })
+    this.empregadosService.getEmpregadosByIdEmpresa(empresaSelecionada.value.id).subscribe({
+      next: (r) => {
+        this.empregados = r
+      }
+    })
+  }
+
+  searchSetor(event: AutoCompleteCompleteEvent) {
+    if (event.query.length >= 3) {
+      this.empresaService.filterSetores(this.empresaFilterSelectedId, event.query).subscribe({
+        next: (r) => {
+          this.setoresSuggestions = r
+        }
+      })
+    }
+  }
+  setorSelected(event: any) {
+    this.setorFilterSelectedId = event.value.id
+    this.empregadosService.filterEmpregado(this.empresaFilterSelectedId, '', this.selectedStatusDoEmpregado, this.setorFilterSelectedId).subscribe({
+      next: (r) => {
+        this.empregados = r
+      }
+    })
+  }
+
+  searchEmpregado(event: AutoCompleteCompleteEvent) {
+    if (event.query.length >= 3) {
+      this.empregadosService.filterEmpregado(this.empresaFilterSelectedId, event.query, this.selectedStatusDoEmpregado, this.setorFilterSelectedId).subscribe({
+        next: (r) => {
+          this.empregadosSuggestions = r
+        }
+      })
+    }
+  }
+
+  employerSelected(event: any) {
+    this.filtersVisible = false
+    this.router.navigate([`empregado/${this.empresaFilterSelectedId}/${event.value!.id}`], { relativeTo: this.route })
+  }
+
+  onPageChange($event: any) {
+
+  }
+  changeFilterVisibility() {
+    this.filtersVisible = !this.filtersVisible
+  }
 }
-}
 
-interface WebAppInterface {
-  validate(fingerPrintReceived: any): any;
-
-}
-
-declare var Android: WebAppInterface;

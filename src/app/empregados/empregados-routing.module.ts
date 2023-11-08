@@ -5,7 +5,7 @@ import { DetalhesComponent } from './detalhes/detalhes.component';
 
 const routes: Routes = [
   {path:'',component: EmpregadosComponent,children:
-    [{path:'empregado/:codigo',component: DetalhesComponent}]
+    [{path:'empregado/:idEmpresa/:idEmpregado',component: DetalhesComponent}]
   }
 ];
 

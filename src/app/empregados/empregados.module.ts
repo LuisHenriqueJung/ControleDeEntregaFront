@@ -14,6 +14,11 @@ import { CardModule } from 'primeng/card'
 import { PanelModule } from 'primeng/panel';
 import { PaginatorModule } from 'primeng/paginator';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SkeletonModule } from 'primeng/skeleton';
+
 @NgModule({
   declarations: [
     EmpregadosComponent,
@@ -32,7 +37,11 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     PanelModule,
     InputTextModule,
     PaginatorModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    CalendarModule,
+    InputNumberModule,
+    MultiSelectModule,
+    SkeletonModule
   ]
 })
 export class EmpregadosModule { }

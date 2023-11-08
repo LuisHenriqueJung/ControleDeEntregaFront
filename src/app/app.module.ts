@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { InputTextModule} from 'primeng/inputtext'
 import { CommonModule } from '@angular/common';
 import { EntregaService } from './entrega.service';
@@ -15,7 +16,14 @@ import { SidenavComponent } from './layout/sidenav/sidenav.component';
 import { ButtonModule } from 'primeng/button';
 import { TreeModule } from 'primeng/tree';
 import { SidenavLinkComponent } from './layout/sidenav-link/sidenav-link.component';
-
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AuthService } from './security/auth.service';
+import { RsdataHttpInterceptor } from './security/interceptor';
+import { JWT_OPTIONS  } from '@auth0/angular-jwt';
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -34,11 +42,28 @@ import { SidenavLinkComponent } from './layout/sidenav-link/sidenav-link.compone
     HttpClientModule,
     InputTextModule,
     ButtonModule,
-    TreeModule
+    TreeModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'pt-BR',
+      loader: {
+        provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+    }),
 
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-    EntregaService
+    EntregaService,
+    TranslateService,
+    AuthService,
+    JwtHelperService,
+    { provide: HTTP_INTERCEPTORS,
+      useClass:RsdataHttpInterceptor,
+      multi: true},
+      { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+
   ],
   bootstrap: [AppComponent]
 })

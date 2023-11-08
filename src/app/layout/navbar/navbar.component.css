@@ -1,7 +1,6 @@
 .my-navbar {
   background-color: var(--primary-color);
   height: 3.5rem;
-  width: 100vw;
   align-items: center;
   display: flex;
 }

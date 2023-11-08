@@ -1,0 +1,43 @@
+<div class=" w-100 fixed bottom-0 top-0 bg-cover d-flex align-items-center bg-white bg-no-repeat sm:p-3"
+  style=" background-image: url('assets/img/bg_dataesocial.jpg');">
+  <div
+    class="d-flex md:col-4 md:col-offset-4 border-solid border-1 border-round-lg shadow-5 border-gray-200  align-items-center bg-white md:p-5 ">
+    <div class="  d-flex col-12 ">
+      <div class="w-100">
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="w-100">
+            <div class="text-center" style="padding-bottom: 1%">
+              <img src="https://apps.rsdata.com.br/img/logo_rsdata.png" alt="" class="w-50">
+            </div>
+          </div>
+        </div>
+        <form class="mt-2" (submit)="login()" [formGroup]="loginForm" autocomplete="off">
+          <div class="col-12 p-fluid">
+            <div *ngIf="invalidForm" class="p-message p-message-error p-3"> {{'DADOS_INCORRETOS'| translate}}</div>
+          </div>
+          <div class="col-12 p-fluid">
+            <label>E-mail</label>
+            <input pInputText formControlName="email" name="email" type="email" class="form-control" autofocus>
+          </div>
+          <div class=" col-12 p-fluid">
+            <label>{{'senha'| translate }}</label>
+            <p-password formControlName="password" [feedback]="false" [toggleMask]="true"></p-password>
+          </div>
+          <div class="col-12 flex justify-content-end  m-0">
+            <p-button  [loading]="entrando" type="submit">{{'entrar'| translate}}</p-button>
+          </div>
+
+        </form>
+        <footer>
+          <!--<div class="text-right">
+            <span class="text-secondary termos-uso"><a href="https://web.rsdata.com.br/RSTermos/#/politicas-privacidade"
+                target="_blank">{{'POLITICAS'| translate}} | </a><a
+                href="https://web.rsdata.com.br/RSTermos/#/termos-uso" target="_blank">{{'TERMOS'| translate}}
+              </a></span>
+          </div>-->
+        </footer>
+      </div>
+    </div>
+  </div>
+
+</div>

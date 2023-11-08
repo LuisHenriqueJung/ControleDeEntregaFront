@@ -1,122 +1,32 @@
-.my-path{
+:host ::ng-deep .p-multiselect {
+  height: 37px;
+}
+
+.filter-collapsed {
+  max-height: 0;
+  transition: max-height 300ms cubic-bezier(0.02, 0.68, 0.63, 0.98);
+}
+.teste{
+  max-height: 1000px;
+  height: auto;
+  display: flex;
+  overflow: hidden;
+  transition: max-height 300ms cubic-bezier(0.02, 0.68, 0.63, 0.98);
+}
+
+
+.my-path {
   list-style: none;
   display: flex;
   color: white;
   align-items: baseline;
 }
 
-hr{
+hr {
   margin: 0;
   margin-bottom: 0.5rem;
 }
 
-.p-panel .p-panel-content{
+.p-panel .p-panel-content {
   padding: 0;
-}
-
-.biometric_hand_d{
-  background-image: url('/assets/img/maoDigitald.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  position: relative;
-  height: 258px;
-  width: 218px;
-  margin-left: 30px;
-}
-
-.biometric_hand_e{
-  background-image: url('/assets/img/maoDigitale.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  position: relative;
-  height: 258px;
-  width: 218px;
-  margin-right: 30px;
-}
-
-.finger{
-  border: 3px solid var(--yellow);
-  border-radius: 50%;
-}
-
-.finger_1d{
-  top: 106px;
-  left: 0px;
-  position: absolute;
-  height: 51px;
-  width: 51px;
-}
-
-.finger_2d{
-  top: 10px;
-  left: 63px;
-  position: absolute;
-  height: 42px;
-  width: 38px;
-}
-
-.finger_3d{
-  top: 2px;
-  left: 101px;
-  position: absolute;
-  height: 42px;
-  width: 36px;
-}
-
-.finger_4d{
-  top: 15px;
-  left: 133px;
-  position: absolute;
-  height: 43px;
-  width: 34px;
-}
-
-.finger_5d{
-  top: 59px;
-  left: 182px;
-  position: absolute;
-  height: 39px;
-  width: 32px;
-}
-
-.finger_1e{
-  top: 106px;
-  left: 167px;
-  position: absolute;
-  height: 51px;
-  width: 51px;
-}
-
-.finger_2e{
-  top: 10px;
-  left: 117px;
-  position: absolute;
-  height: 42px;
-  width: 38px;
-}
-
-.finger_3e{
-  top: 2px;
-  left: 81px;
-  position: absolute;
-  height: 42px;
-  width: 36px;
-}
-
-.finger_4e{
-  top: 15px;
-  left: 51px;
-  position: absolute;
-  height: 43px;
-  width: 34px;
-}
-
-.finger_5e{
-  top: 59px;
-  left: 5px;
-  position: absolute;
-  height: 39px;
-  width: 32px;
 }
