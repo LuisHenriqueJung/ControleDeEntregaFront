@@ -29,7 +29,7 @@
       </div>-->
       <div class="md:col-3 col-12 p-fluid">
         <label for="empresa_filter" class="form-label">Empresa</label>
-        <p-autoComplete #empresa_filter class="p-inputtext-sm" (onSelect)="empresaSelected($event)"
+        <p-autoComplete #empresa_filter appendTo="body" class="p-inputtext-sm" (onSelect)="empresaSelected($event)"
           [suggestions]="empresasSuggestions" (completeMethod)="searchEmpresa($event)" [forceSelection]="true"
           [showEmptyMessage]="true" placeholder="Buscar empresa" field="denominacao">
           <ng-template let-empresa pTemplate="item">
@@ -44,7 +44,7 @@
       </div>
       <div class="md:col-3 col-12 p-fluid">
         <label  for="setor_filter" class="form-label">Setor</label>
-        <p-autoComplete [disabled]="!empresaFilterSelectedId" #setor_filter class="p-inputtext-sm" (onSelect)="setorSelected($event)"
+        <p-autoComplete #setor_filter appendTo="body" [disabled]="!empresaFilterSelectedId"  class="p-inputtext-sm" (onSelect)="setorSelected($event)"
           [suggestions]="setoresSuggestions" (completeMethod)="searchSetor($event)" [forceSelection]="true"
           [showEmptyMessage]="true" placeholder="Buscar Setor" field="nome">
           <ng-template let-setor pTemplate="item">
@@ -56,12 +56,12 @@
       </div>
       <div class="md:col-3 col-12 p-fluid">
         <label for="vinculo_filter" class="form-label">Status do empregado</label>
-        <p-multiSelect #vinculo_filter [options]="statusDoEmpregado" [(ngModel)]="selectedStatusDoEmpregado" class="p-inputtext-sm" styles="height: 37px;"
+        <p-multiSelect #vinculo_filter appendTo="body" [options]="statusDoEmpregado" [(ngModel)]="selectedStatusDoEmpregado" class="p-inputtext-sm" styles="height: 37px;"
           placeholder="Filtrar por status" display="chip" optionLabel="nome"></p-multiSelect>
       </div>
       <div class="md:col-3 col-12 p-fluid">
         <label for="empregado_filter" class="form-label">Empregado</label>
-        <p-autoComplete #empregado_filter class="p-inputtext-sm" [disabled]="empregados.length == 0"
+        <p-autoComplete #empregado_filter appendTo="body" class="p-inputtext-sm" [disabled]="empregados.length == 0"
           (onSelect)="employerSelected($event)" [suggestions]="empregadosSuggestions"
           (completeMethod)="searchEmpregado($event)" [forceSelection]="true" [showEmptyMessage]="true"
           placeholder="Buscar empregado" field="nome">
