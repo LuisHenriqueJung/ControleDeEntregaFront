@@ -16,28 +16,28 @@
         <p-skeleton *ngIf="loading" width="15rem" styleClass="mb-2"></p-skeleton>
         <p-skeleton *ngIf="loading" width="10rem" styleClass="mb-2"></p-skeleton>
         <a *ngIf="!loading" href="void()" class="h3 btn-link">{{empregado.nome}}</a>
-        <p *ngIf="!loading" class="text-muted m-0">Matrícula: {{empregado.matricula}}</p>
-        <p *ngIf="!loading" class="text-muted m-0">Setor: {{empregado.setor}}</p>
+        <p *ngIf="!loading" class="text-muted m-0">{{'matricula'| translate}}: {{empregado.matricula}}</p>
+        <p *ngIf="!loading" class="text-muted m-0">{{'setor'| translate}}: {{empregado.setor}}</p>
         <p *ngIf="!loading" class="text-muted m-0">{{empregado.titleGhePosicaoCargo}}: {{empregado.ghePosicaoCargo}}</p>
-        <p *ngIf="!loading" class="text-muted">Idade: {{empregado.idade}}</p>
+        <p *ngIf="!loading" class="text-muted">{{'idade'| translate}}: {{empregado.idade}}</p>
       </div>
     </div>
     <div class="grid col-12 md:col-6 justify-content-end">
-      <p-button  [text]="true" [raised]="true" (onClick)="dialogFingerVisible = !dialogFingerVisible" label="Cadastro biométrico"></p-button>
+      <p-button  [text]="true" [raised]="true" (onClick)="dialogFingerVisible = !dialogFingerVisible" label="{{'cadastro biometrico'| translate}}"></p-button>
     </div>
   </div>
 </div>
 <div class="card mb-4 fadeinright animation-duration-200">
   <div class="card-body">
-    <h5 class="card-title">Troca de EPIs</h5>
+    <h5 class="card-title">{{'troca de epis'| translate}}</h5>
     <div class="col-12 gap-1 grid  p-fluid" *ngIf="(lg$ | async) || (xl$| async) || (xl2$ | async)">
-      <p-button size="small" label="Incluir" severity="success" icon="pi pi-plus"
+      <p-button size="small" label="{{'incluir'| translate}}" severity="success" icon="pi pi-plus"
         (onClick)="dialogIncluirVisible = true"></p-button>
-      <p-button size="small" label="Anular" severity="danger" icon="pi pi-trash"></p-button>
-      <p-button size="small" label="Confirmar" icon="pi pi-angle-double-up"
+      <p-button size="small" label="{{'anular'| translate}}" severity="danger" icon="pi pi-trash"></p-button>
+      <p-button size="small" label="{{'confirmar'| translate}}" icon="pi pi-angle-double-up"
         (onClick)="confirmarEntregaEpis('')"></p-button>
-      <p-button size="small" label="Revisar" icon="pi pi-refresh"></p-button>
-      <p-button size="small" label="Devolver" icon="pi pi-angle-double-down"></p-button>
+      <p-button size="small" label="{{'revisar'| translate}}" icon="pi pi-refresh"></p-button>
+      <p-button size="small" label="{{'devolver'| translate}}" icon="pi pi-angle-double-down"></p-button>
     </div>
     <div class="col-12 gap-1 grid p-fluid" *ngIf="(sm$  | async) || (md$ |async)">
       <p-button size="small" severity="success" icon="pi pi-plus" (onClick)="dialogIncluirVisible = true"></p-button>
@@ -58,9 +58,9 @@
             <th>Item</th>
             <th>Qntd.</th>
             <th>CA</th>
-            <th>Data entrega</th>
-            <th>Motivo</th>
-            <th>Próxima troca</th>
+            <th>{{'data entrega'| translate}}</th>
+            <th>{{'motivo'| translate}}</th>
+            <th>{{'proxima troca'| translate}}</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-empregadoEpi>
@@ -86,13 +86,13 @@
             <div class="p-3 mb-3 border-1 border-solid border-round-sm surface-border">
               <div><strong>Item: </strong>{{empregadoEpi.epi.nome}}</div>
               <div>CA: {{empregadoEpi.epi.CA}} </div>
-              <div>Quantidade: {{empregadoEpi.epi.quantidade}}</div>
-              <div>Data de entrega: {{empregadoEpi.epi.dataEntrega | date: 'dd/MM/yyyy'}}</div>
+              <div>{{'quantidade' |translate}}: {{empregadoEpi.epi.quantidade}}</div>
+              <div>{{'data entrega'| translate}}: {{empregadoEpi.epi.dataEntrega | date: 'dd/MM/yyyy'}}</div>
 
-              <div>Próxima troca: {{empregadoEpi.dataPrevista | date: 'dd/MM/yyyy'}}</div>
+              <div>{{"proxima troca"| translate}}: {{empregadoEpi.dataPrevista | date: 'dd/MM/yyyy'}}</div>
 
               <div class="flex justify-content-between">
-                <div>Motivo: {{empregadoEpi.motivo}}</div>
+                <div>{{'motivo'| translate}}: {{empregadoEpi.motivo}}</div>
                 <div>
                   <p-tableCheckbox class="m-2" [value]="empregadoEpi"></p-tableCheckbox>
                 </div>
@@ -111,7 +111,7 @@
   [modal]="true" [breakpoints]="{ '960px': '98vw' }">
   <div class="grid col-12 justify-content-center">
     <div class=" col-12 md:col-10 p-fluid">
-      <label for="epi" class="form-label">EPI</label>
+      <label for="epi" class="form-label">{{'EPI'| translate}}</label>
       <p-autoComplete #epi appendTo="body" class="p-inputtext-sm" (onSelect)="epiSelected($event)"
         [suggestions]="epiSuggestions" (completeMethod)="searchEpi($event)" field="nome">
         <ng-template let-epi pTemplate="item">
@@ -122,22 +122,22 @@
       </p-autoComplete>
     </div>
     <div class="col-12 md:col-2 p-fluid">
-      <label class="mb-2 block " for="minmax-buttons">Quantidade</label>
+      <label class="mb-2 block " for="minmax-buttons">{{'quantidade'| translate}}</label>
       <input class="p-inputtext-sm" type="number" pInputText [(ngModel)]="quantidadeEpis" />
     </div>
     <div class=" col-12 md:col-6 p-fluid">
-      <label for="data_entrega" class="form-label">Data de entrega</label>
+      <label for="data_entrega" class="form-label">{{'data entrega'| translate}}</label>
       <p-calendar dateFormat="dd/mm/yy" class="p-inputtext-sm" #data_entrega [showButtonBar]="true"
         appendTo="body"></p-calendar>
     </div>
     <div class=" col-12 md:col-6 p-fluid">
-      <label for="data_troca" class="form-label">Data prevista troca</label>
+      <label for="data_troca" class="form-label">{{'proxima troca'| translate}}</label>
       <p-calendar dateFormat="dd/mm/yy" class="p-inputtext-sm" #data_troca [showButtonBar]="true"
         appendTo="body"></p-calendar>
     </div>
 
     <div class="col-12 p-fluid">
-      <label class="mb-2 block " for="minmax-buttons">Motivo</label>
+      <label class="mb-2 block " for="minmax-buttons">{{'motivo'| translate}}</label>
       <p-dropdown class="p-inputtext-sm" appendTo="body" [options]="motivos"
         placeholder="Selecione o motivo"></p-dropdown>
     </div>

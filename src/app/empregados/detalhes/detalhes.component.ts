@@ -40,11 +40,16 @@ export class DetalhesComponent implements OnInit {
     this.empregadoEPIs = this.empregadoService.getEmpregadoEpi()
     this.epis = this.epiService.getAllEpis()
     this.motivos = this.epiService.getAllMotivosTroca()
-    let idEmpregado = this.route.snapshot.params['idEmpregado']
-    let idEmpresa = this.route.snapshot.params['idEmpresa']
-    if (idEmpregado && idEmpresa) {
-      this.getEmpregadoInfo(idEmpresa, idEmpregado)
-    }
+
+    this.route.params.subscribe( params =>{
+      this.loading = true
+      let idEmpregado = params['idEmpregado']
+      let idEmpresa = params['idEmpresa']
+      if (idEmpregado && idEmpresa) {
+        this.getEmpregadoInfo(idEmpresa, idEmpregado)
+      }
+    })
+
   }
 
   empregadoEPIs: any[] = []

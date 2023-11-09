@@ -21,6 +21,7 @@
     "@auth0/angular-jwt": "^5.2.0",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
+    "flag-icon-css": "^4.1.7",
     "ngx-device-detector": "^6.0.2",
     "perfect-scrollbar": "^1.5.5",
     "primeflex": "^3.3.1",

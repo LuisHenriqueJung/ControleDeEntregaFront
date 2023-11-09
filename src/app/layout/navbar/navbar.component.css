@@ -16,3 +16,23 @@
   transform: scale(1.1);
 
 }
+
+:host { display: block; }
+:host ::ng-deep .p-dropdown{
+  border: none;
+  background: none;
+}
+:host ::ng-deep .p-dropdown:not(.p-disabled).p-focus {
+  border:none;
+  box-shadow:none;
+}
+
+
+:host ::ng-deep .p-dropdown .p-dropdown-trigger{
+  display: none;
+}
+
+::ng-deep .p-dropdown-panel{
+  right: 0;
+  left: auto;
+}

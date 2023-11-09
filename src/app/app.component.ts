@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { Observable, fromEvent, map, startWith } from 'rxjs';
+import { MyTranslateService } from './core/my-translate.service';
 
 export function media(query: string): Observable<boolean> {
   const mediaQuery = window.matchMedia(query);
@@ -19,15 +20,15 @@ export function media(query: string): Observable<boolean> {
 })
 export class AppComponent implements OnInit {
 
-  constructor( private translateService: TranslateService, private primengConfig: PrimeNGConfig, ) {
+  constructor( private translateService: TranslateService, private primengConfig: PrimeNGConfig,private myTranslate:MyTranslateService ) {
 
   }
   ngOnInit(): void {
     this.translateService.setDefaultLang('pt-BR');
-    let language =  localStorage.getItem('language')
-    if(language)
-      this.translate(language)
     this.primengConfig.ripple = true;
+    this.myTranslate.idioma.subscribe((val: string)=>{
+      this.translate(val)
+    })
   }
 
   translate(lang: string) {

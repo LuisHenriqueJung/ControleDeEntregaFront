@@ -8,7 +8,7 @@
       </ol>
     </nav>
     <!-- END : Breadcrumb -->
-    <h1 class="page-title mb-0 mt-2 text-white-alpha-90">Controle de entrega</h1>
+    <h1 class="page-title mb-0 mt-2 text-white-alpha-90">{{'controle de entrega'| translate}}</h1>
     <p class="lead">
     </p>
   </div>
@@ -17,7 +17,7 @@
 <div class="card mb-4">
   <div class="card-body">
     <div class="flex justify-content-between">
-      <h5 class="card-title">Filtros</h5>
+      <h5 class="card-title">{{'filtros'| translate}}</h5>
       <p-button size="small" icon="pi {{!filtersVisible ? 'pi-angle-down' : 'pi-angle-up'}}" [text]="true"
         (onClick)="changeFilterVisibility()"></p-button>
     </div>
@@ -28,7 +28,7 @@
           optionLabel="nome" [showClear]="true" placeholder="Selecione um local de atendimento"></p-dropdown>
       </div>-->
       <div class="md:col-3 col-12 p-fluid">
-        <label for="empresa_filter" class="form-label">Empresa</label>
+        <label for="empresa_filter" class="form-label">{{'empresa'| translate}}</label>
         <p-autoComplete #empresa_filter appendTo="body" class="p-inputtext-sm" (onSelect)="empresaSelected($event)"
           [suggestions]="empresasSuggestions" (completeMethod)="searchEmpresa($event)" [forceSelection]="true"
           [showEmptyMessage]="true" placeholder="Buscar empresa" field="denominacao">
@@ -43,7 +43,7 @@
         </p-autoComplete>
       </div>
       <div class="md:col-3 col-12 p-fluid">
-        <label  for="setor_filter" class="form-label">Setor</label>
+        <label  for="setor_filter" class="form-label">{{'setor'| translate}}</label>
         <p-autoComplete #setor_filter appendTo="body" [disabled]="!empresaFilterSelectedId"  class="p-inputtext-sm" (onSelect)="setorSelected($event)"
           [suggestions]="setoresSuggestions" (completeMethod)="searchSetor($event)" [forceSelection]="true"
           [showEmptyMessage]="true" placeholder="Buscar Setor" field="nome">
@@ -55,12 +55,12 @@
         </p-autoComplete>
       </div>
       <div class="md:col-3 col-12 p-fluid">
-        <label for="vinculo_filter" class="form-label">Status do empregado</label>
+        <label for="vinculo_filter" class="form-label">{{'status empregado'| translate}}</label>
         <p-multiSelect #vinculo_filter appendTo="body" [options]="statusDoEmpregado" [(ngModel)]="selectedStatusDoEmpregado" class="p-inputtext-sm" styles="height: 37px;"
           placeholder="Filtrar por status" display="chip" optionLabel="nome"></p-multiSelect>
       </div>
       <div class="md:col-3 col-12 p-fluid">
-        <label for="empregado_filter" class="form-label">Empregado</label>
+        <label for="empregado_filter" class="form-label">{{'empregado'| translate}}</label>
         <p-autoComplete #empregado_filter appendTo="body" class="p-inputtext-sm" [disabled]="empregados.length == 0"
           (onSelect)="employerSelected($event)" [suggestions]="empregadosSuggestions"
           (completeMethod)="searchEmpregado($event)" [forceSelection]="true" [showEmptyMessage]="true"

@@ -21,6 +21,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AuthService } from './security/auth.service';
 import { RsdataHttpInterceptor } from './security/interceptor';
 import { JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { DropdownModule } from 'primeng/dropdown';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -43,6 +44,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     InputTextModule,
     ButtonModule,
     TreeModule,
+    DropdownModule,
     TranslateModule.forRoot({
       defaultLanguage: 'pt-BR',
       loader: {

@@ -18,6 +18,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SkeletonModule } from 'primeng/skeleton';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { SkeletonModule } from 'primeng/skeleton';
     CalendarModule,
     InputNumberModule,
     MultiSelectModule,
-    SkeletonModule
+    SkeletonModule,
+    TranslateModule
   ]
 })
 export class EmpregadosModule { }
