@@ -31,6 +31,10 @@
   "EPI":"EPP",
   "cadastro biometrico":"Registro boimétrico",
   "troca de epis":"Cambiar el EPP",
+  "selecionar todos":"Seleccionar todo",
+  "Pesquisar":"Buscar",
+  "nenhum item encontrado":"No se encontraron artículos, verifique los filtros aplicados.",
+  "tipo":"Type",
   "primeng": {
       "startsWith": "Comience con",
       "contains": "Contenga",

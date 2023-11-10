@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, ObservableLike } from 'rxjs';
 import { environment } from 'src/enviroments/enviroments';
+import { EmpregadoFilter } from '../model/empregado';
+import { EntregaFilter } from '../model/entrega';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,8 @@ export class EmpregadosService {
 
   empregadosUrl = `${environment.apiUrl}/empregado/`
   statusEmpregadoUrl = `${environment.apiUrl}/statusEmpregado/list?searchValue=`
+  entregasUrl = `${environment.apiUrl}/controleEntrega/entregas/`
+  digitalInfoUrl = `${environment.apiUrl}/empregado/digital/info/`
 
   lancamentosUrl = 'http://10.1.20.119:3000/empregado';
   constructor(private http: HttpClient) { }
@@ -48,249 +52,17 @@ export class EmpregadosService {
     return this.http.get(`${this.empregadosUrl}info/${idEmpresa}/${idEmpregado}`)
   }
 
-  getEmpregadoEpi() {
-    return [
-      {
-        id: 1,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 3244,
-          nome: 'Protetor auditivo',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Cachorro comeu'
-      }, {
-        id: 2,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Estragou na meiota'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }, {
-        id: 3,
-        dataPrevista: Date.now(),
-        epi: {
-          CA: 34344,
-          nome: 'Óculos de segurança',
-          marca: 'LEDAN',
-          validadeCA: Date.now(),
-          quantidade: 1,
-          dataEntrega: Date.now()
-        },
-        motivo: 'Furo'
-      }
-    ]
+  getEmpregadoEpi(filter: EntregaFilter):Observable<any> {
+    var params = new  HttpParams()
+    if(filter?.searchvalue)
+      params = params.set('searchValue',filter.searchvalue)
+    params = params.set('page', filter.page)
+    params = params.set('size', filter.size)
+    params = params.set('sort','nome,desc')
+    return this.http.get(`${this.entregasUrl}${filter.idEmpresa}/${filter.idEmpregado}?`,{params})
+  }
+
+  getDigitalEmpregadoByIdEmpresaAndIdEmpregado(idEmpresa: number, idEmpregado: number):Observable<any>{
+    return this.http.get(`${this.digitalInfoUrl}${idEmpresa}/${idEmpregado}`)
   }
 }

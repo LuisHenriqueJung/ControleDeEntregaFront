@@ -57,8 +57,21 @@ td{
 }
 
 .finger {
-  border: 3px solid var(--yellow);
   border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cadastrado{
+  border: 3px solid #3e9823d8;
+}
+
+.anulado{
+  border: 3px solid rgb(173, 47, 47);
+}
+
+.capture{
+  border: 3px solid yellow;
 }
 
 .finger_1d {

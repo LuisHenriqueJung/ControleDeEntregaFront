@@ -31,6 +31,9 @@
   "EPI":"PPE",
   "cadastro biometrico":"Boimetric registration",
   "troca de epis":"Changing PPE",
+  "nenhum item encontrado":"No items found, check the applied filters!",
+  "tipo":"Tipo",
+   "Pesquisar":"Search",
     "primeng":{
        "startsWith": "Starts with",
        "contains": "Contains",

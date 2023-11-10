@@ -19,6 +19,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TranslateModule } from '@ngx-translate/core';
+import { TagModule } from 'primeng/tag';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,6 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     EmpregadosRoutingModule,
     TableModule,
-    InputTextModule,
     ButtonModule,
     DialogModule,
     DropdownModule,
@@ -43,7 +44,8 @@ import { TranslateModule } from '@ngx-translate/core';
     InputNumberModule,
     MultiSelectModule,
     SkeletonModule,
-    TranslateModule
+    TranslateModule,
+    TagModule
   ]
 })
 export class EmpregadosModule { }
