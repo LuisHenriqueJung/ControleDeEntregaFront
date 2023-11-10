@@ -1,0 +1,59 @@
+<p-dialog (visibleChange)="onVisibleChangeFunction()" header="Biometria" [(visible)]="visible" [style]="{width: '40vw'}" [modal]="true"
+  [breakpoints]="{ '1238px': '60vw','1000px':'70vw','728px':'80vw' ,'627px':'95vw'}">
+  <div class="col-12 flex flex-wrap justify-content-center">
+    <div class=" col-12" [ngClass]="{'biometric_hand_e' : !(sm$| async),'biometric_hand_e_mobile' : (sm$| async)}">
+      <div class=" finger {{ empregadoDigital.e1!}}"
+        [ngClass]="{'finger_1e' :  !(sm$| async),'finger_1e_mobile' : (sm$| async)}"
+        >
+        <img *ngIf="empregadoDigital.e1" src="/assets/img/digital/finger1e{{empregadoDigital.e1}}.png" alt="">
+      </div>
+      <div class=" finger {{ empregadoDigital.e2!}} "
+        [ngClass]="{'finger_2e' :  !(sm$| async),'finger_2e_mobile' : (sm$| async)}"
+       >
+        <img *ngIf="empregadoDigital.e2" src="/assets/img/digital/finger2e{{empregadoDigital.e2}}.png" alt="">
+      </div>
+      <div class="finger {{ empregadoDigital.e3!}}"
+        [ngClass]="{'finger_3e' :  !(sm$| async),'finger_3e_mobile' :(sm$| async)}"
+       >
+        <img *ngIf="empregadoDigital.e3" src="/assets/img/digital/finger3e{{empregadoDigital.e3}}.png" alt="">
+      </div>
+      <div class="finger {{ empregadoDigital.e4!}}"
+        [ngClass]="{'finger_4e' : !(sm$| async),'finger_4e_mobile' : (sm$| async)}"
+     >
+        <img *ngIf="empregadoDigital.e4" src="/assets/img/digital/finger4e{{empregadoDigital.e4}}.png" alt="">
+      </div>
+      <div class="finger {{ empregadoDigital.e5!}}"
+        [ngClass]="{'finger_5e' : !(sm$| async),'finger_5e_mobile' : (sm$| async)}"
+       >
+        <img *ngIf="empregadoDigital.e5" src="/assets/img/digital/finger5e{{empregadoDigital.e5}}.png" alt="">
+      </div>
+    </div>
+    <div class="col-12" [ngClass]="{'biometric_hand_d' : !(sm$| async),'biometric_hand_d_mobile' : (sm$| async)}">
+      <div class="finger {{ empregadoDigital.d1!}}"
+        [ngClass]="{'finger_1d' : !(sm$| async),'finger_1d_mobile ' : (sm$| async)}"
+      >
+        <img src="/assets/img/digital/finger1d{{empregadoDigital.d1}}.png" alt="">
+      </div>
+      <div class="finger  {{empregadoDigital.d2!}}"
+        [ngClass]="{'finger_2d' : !(sm$| async),'finger_2d_mobile' : (sm$| async)}"
+    >
+        <img src="/assets/img/digital/finger2d{{empregadoDigital.d2}}.png" alt="">
+      </div>
+      <div class="finger {{empregadoDigital.d3!}}"
+        [ngClass]="{'finger_3d' : !(sm$| async),'finger_3d_mobile' : (sm$| async)}"
+     >
+        <img src="/assets/img/digital/finger3d{{empregadoDigital.d3}}.png" alt="">
+      </div>
+      <div class="finger {{ empregadoDigital.d4!}}"
+        [ngClass]="{'finger_4d' : !(sm$| async),'finger_4d_mobile' : (sm$| async)}"
+        >
+        <img src="/assets/img/digital/finger4d{{empregadoDigital.d4}}.png" alt="">
+      </div>
+      <div class="finger {{ empregadoDigital.d5!}}"
+        [ngClass]="{'finger_5d' : !(sm$| async),'finger_5d_mobile' : (sm$| async)}"
+       >
+        <img src="/assets/img/digital/finger5d{{empregadoDigital.d5}}.png" alt="">
+      </div>
+    </div>
+  </div>
+</p-dialog>

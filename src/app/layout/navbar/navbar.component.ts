@@ -26,7 +26,7 @@ idiomas = [
 
 
 alterarIdioma(event: any){
- this.translate.setLanguage(event.value.value)
+ this.translate.setLanguage(event.value!.value)
 }
 
 

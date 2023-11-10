@@ -1,0 +1,68 @@
+<p-dialog (visibleChange)="visibleChangeFunction()" header="{{'nova troca'| translate}}" [(visible)]=" visible"
+  [style]="{width: '50vw'}" [modal]="true"
+  [breakpoints]="{ '1238px': '60vw','1000px':'70vw','728px':'80vw' ,'627px':'95vw'}">
+  <form [formGroup]="itemForm" (submit)="confirmarCadastro()">
+  <div class="grid col-12 justify-content-center overflow-hidden">
+    <div class=" col-12  p-fluid transition-all transition-ease-in" [ngClass]="{'md:col-8':showSizesBox ,'md:col-10' : !showSizesBox}">
+      <label for="epi" class="form-label">{{'Item'| translate}}</label>
+      <p-autoComplete formControlName="item" #epi class="p-inputtext-sm " (onSelect)="epiSelected($event)" [suggestions]="itens"
+        (completeMethod)="searchEpi($event)" field="descricao">
+        <ng-template let-item pTemplate="item">
+          <div class="flex align-items-center gap-2">
+            <div>{{ item.descricao }}</div>
+          </div>
+        </ng-template>
+      </p-autoComplete>
+      <app-message [control]="itemForm.get('item')" error="required"
+      text="{{'requerido'| translate}}"> </app-message>
+    </div>
+    <div class=" md:col-2 p-fluid"  [ngClass]="{'col-6':showSizesBox ,'col-12' : !showSizesBox}">
+      <label class="mb-2 block " for="minmax-buttons">{{'quantidade'| translate}}</label>
+      <input  formControlName="quantidade" (change)="recalculateDataPrevista()" class="p-inputtext-sm" type="number" pInputText/>
+      <app-message [control]="itemForm.get('quantidade')" error="required"
+      text="{{'requerido'| translate}}"> </app-message>
+
+    </div>
+    <div *ngIf="showSizesBox" class="md:col-2 p-fluid" [ngClass]="{'col-6':showSizesBox ,'col-12' : !showSizesBox}">
+      <label class="mb-2 block " for="minmax-buttons">{{'tamanho'| translate}}</label>
+      <p-dropdown  formControlName="tamanho" class="p-inputtext-sm" appendTo="body"  optionLabel="tamanho" [options]="tamanhos"
+        placeholder="Selecione o motivo"></p-dropdown>
+        <app-message [control]="itemForm.get('tamanho')" error="required"
+        text="{{'requerido'| translate}}"> </app-message>
+    </div>
+    <div class=" col-12 md:col-6 p-fluid">
+      <label for="data_entrega" class="form-label">{{'data entrega'| translate}}</label>
+      <p-calendar [touchUI]="isMobile" (onSelect)="recalculateDataPrevista()"  formControlName="dataEntrega" dateFormat="dd/mm/yy" class="p-inputtext-sm"  #data_entrega [showButtonBar]="true"
+        appendTo="body"></p-calendar>
+        <app-message [control]="itemForm.get('dataEntrega')" error="required"
+        text="{{'requerido'| translate}}"> </app-message>
+    </div>
+    <div class=" col-12 md:col-6 p-fluid">
+      <label for="data_troca" class="form-label">{{'proxima troca'| translate}}</label>
+      <p-calendar [touchUI]="isMobile"  formControlName="proximaTroca" dateFormat="dd/mm/yy" class="p-inputtext-sm" #data_troca [showButtonBar]="true"
+        appendTo="body"></p-calendar>
+        <app-message [control]="itemForm.get('proximaTroca')" error="required"
+        text="{{'requerido'| translate}}"> </app-message>
+    </div>
+
+    <div class="col-12 p-fluid">
+      <label class="mb-2 block " for="minmax-buttons">{{'motivo'| translate}}</label>
+      <p-dropdown formControlName="motivo" class="p-inputtext-sm" appendTo="body" [options]="motivos"
+        placeholder="Selecione o motivo" optionLabel="motivo" (onChange)="changeMotivo($event)"></p-dropdown >
+        <app-message [control]="itemForm.get('motivo')" error="required"
+        text="{{'requerido'| translate}}"> </app-message>
+    </div>
+    <div *ngIf="descricaoVisible" class="col-12 p-fluid">
+      <label class="mb-2 block " for="minmax-buttons">{{'descricao motivo'| translate}}</label>
+      <textarea rows="5" formControlName="descricaoMotivo" cols="30" pInputTextarea></textarea>
+        <app-message [control]="itemForm.get('descricaoMotivo')" error="required"
+        text="{{'requerido'| translate}}"> </app-message>
+    </div>
+  </div>
+</form>
+  <ng-template pTemplate="footer">
+    <div class="col-12">
+      <p-button icon="pi pi-check" type="submit" (click)="confirmarCadastro()" label="Salvar" styleClass="p-button-text"></p-button>
+    </div>
+  </ng-template>
+</p-dialog>

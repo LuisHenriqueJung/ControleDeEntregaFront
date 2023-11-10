@@ -6,7 +6,7 @@
   <div class="md:col-10 lg:col-11 col-6 justify-content-between flex">
     <i class="psi-list-view col-offset-1 col-1"
       style="font-size: 1rem; color: white;align-self: center;cursor: pointer;" (click)="toggleSidenav()"></i>
-    <p-dropdown [options]="idiomas" appendTo="body" class="p-0" name="fieldName" ngDefaultControl
+    <p-dropdown [options]="idiomas" appendTo="body" class="p-0 mr-3" name="fieldName" ngDefaultControl
       [(ngModel)]="idiomaSelecionado" (onChange)="alterarIdioma($event)" optionLabel="name">
       <ng-template pTemplate="selectedItem">
         <div class="flex align-items-center gap-2" *ngIf="idiomaSelecionado">

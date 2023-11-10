@@ -22,7 +22,7 @@
   border: none;
   background: none;
 }
-:host ::ng-deep .p-dropdown:not(.p-disabled).p-focus {
+:host  .p-dropdown:not(.p-disabled).p-focus {
   border:none;
   box-shadow:none;
 }
@@ -32,7 +32,3 @@
   display: none;
 }
 
-::ng-deep .p-dropdown-panel{
-  right: 0;
-  left: auto;
-}

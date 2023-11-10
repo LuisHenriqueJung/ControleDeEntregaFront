@@ -8,7 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DetalhesComponent } from './detalhes/detalhes.component';
 import { CardModule } from 'primeng/card'
 import { PanelModule } from 'primeng/panel';
@@ -20,16 +20,22 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TranslateModule } from '@ngx-translate/core';
 import { TagModule } from 'primeng/tag';
-
+import { InclusaoItemComponent } from './inclusao-item/inclusao-item.component';
+import { CadastroBiometricoComponent } from './cadastro-biometrico/cadastro-biometrico.component';
+import { SharedModule } from '../shared/shared.module';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
     EmpregadosComponent,
-    DetalhesComponent
+    DetalhesComponent,
+    InclusaoItemComponent,
+    CadastroBiometricoComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     EmpregadosRoutingModule,
     TableModule,
     ButtonModule,
@@ -45,7 +51,9 @@ import { TagModule } from 'primeng/tag';
     MultiSelectModule,
     SkeletonModule,
     TranslateModule,
-    TagModule
+    TagModule,
+    SharedModule,
+    InputTextareaModule
   ]
 })
 export class EmpregadosModule { }

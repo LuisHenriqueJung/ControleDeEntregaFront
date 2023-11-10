@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="grid col-12 md:col-6 justify-content-end">
-      <p-button [text]="true" [raised]="true" (onClick)="dialogFingerVisible = !dialogFingerVisible"
+      <p-button [text]="true" [raised]="true" (onClick)="dialogFingerVisible = true"
         label="{{'cadastro biometrico'| translate}}"></p-button>
     </div>
   </div>
@@ -73,16 +73,16 @@
             <th style="width: 4rem">
               <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
-            <th>Qtde.</th>
-            <th>Item</th>
-            <th>Tipo</th>
+            <th>{{'quantidade'| translate}}</th>
+            <th>{{'item'| translate}}</th>
+            <th>{{'tipo'| translate}}</th>
             <th>CA</th>
             <th>{{'data entrega'| translate}}</th>
             <th>{{'motivo'| translate}}</th>
             <th>{{'proxima troca'| translate}}</th>
-            <th>Previsto</th>
-            <th>Status</th>
-            <th>Confirmação</th>
+            <th>{{'Previsto' | translate}}</th>
+            <th>{{'Status'| translate}}</th>
+            <th>{{'confirmacao' | translate}}</th>
           </tr>
           <tr *ngIf="(sm$  | async) || (md$ |async)">
             <div class=" flex justify-content-end m-2">
@@ -110,7 +110,7 @@
             <td *ngIf="!episLoading">{{entregaEpi.qtde}}</td>
             <td *ngIf="!episLoading">{{entregaEpi.nome}}</td>
             <td *ngIf="!episLoading">{{entregaEpi.tipo}}</td>
-            <td *ngIf="!episLoading">CA:{{entregaEpi.ca}} </td>
+            <td *ngIf="!episLoading">{{entregaEpi.ca}} </td>
             <td *ngIf="!episLoading">{{entregaEpi.dataEntrega | date: 'dd/MM/yyyy'}}</td>
             <td *ngIf="!episLoading">{{entregaEpi.motivo}}</td>
             <td *ngIf="!episLoading">{{entregaEpi.dataPrevista | date: 'dd/MM/yyyy'}}</td>
@@ -137,7 +137,7 @@
             <div *ngIf="!episLoading" class="p-3  m-2 border-1 border-solid border-round-sm surface-border">
               <div><strong>{{'Item'| translate}}: </strong>{{entregaEpi.nome}}</div>
               <div>{{'tipo'| translate}}: {{entregaEpi.tipo}}</div>
-              <div>CA: {{entregaEpi.ca}} </div>
+              <div *ngIf="entregaEpi.tipo =='EPI'">CA: {{entregaEpi.ca}} </div>
               <div>{{'quantidade' |translate}}: {{entregaEpi.qtde}}</div>
               <div>{{'data entrega'| translate}}: {{entregaEpi.dataEntrega | date: 'dd/MM/yyyy'}}</div>
               <div>{{"proxima troca"| translate}}: {{entregaEpi.dataPrevista | date: 'dd/MM/yyyy'}}</div>
@@ -162,107 +162,8 @@
   </div>
 </div>
 
+<app-inclusao-item [idEmpresa]="entregaFilter.idEmpresa" [idEmpregado]="entregaFilter.idEmpregado" [visible]="dialogIncluirVisible"
+  (onVisibleChange)="changeIncludeVisibility($event)"></app-inclusao-item>
 
-<p-dialog header="Cadastrar EPI para entrega" [(visible)]="dialogIncluirVisible" [style]="{width: '40vw'}"
-  [modal]="true" [breakpoints]="{ '960px': '98vw' }">
-  <div class="grid col-12 justify-content-center">
-    <div class=" col-12 md:col-10 p-fluid">
-      <label for="epi" class="form-label">{{'EPI'| translate}}</label>
-      <p-autoComplete #epi appendTo="body" class="p-inputtext-sm" (onSelect)="epiSelected($event)"
-        [suggestions]="epiSuggestions" (completeMethod)="searchEpi($event)" field="nome">
-        <ng-template let-epi pTemplate="item">
-          <div class="flex align-items-center gap-2">
-            <div>{{ epi.nome }} - {{epi.marca}}</div>
-          </div>
-        </ng-template>
-      </p-autoComplete>
-    </div>
-    <div class="col-12 md:col-2 p-fluid">
-      <label class="mb-2 block " for="minmax-buttons">{{'quantidade'| translate}}</label>
-      <input class="p-inputtext-sm" type="number" pInputText [(ngModel)]="quantidadeEpis" />
-    </div>
-    <div class=" col-12 md:col-6 p-fluid">
-      <label for="data_entrega" class="form-label">{{'data entrega'| translate}}</label>
-      <p-calendar dateFormat="dd/mm/yy" class="p-inputtext-sm" #data_entrega [showButtonBar]="true"
-        appendTo="body"></p-calendar>
-    </div>
-    <div class=" col-12 md:col-6 p-fluid">
-      <label for="data_troca" class="form-label">{{'proxima troca'| translate}}</label>
-      <p-calendar dateFormat="dd/mm/yy" class="p-inputtext-sm" #data_troca [showButtonBar]="true"
-        appendTo="body"></p-calendar>
-    </div>
-
-    <div class="col-12 p-fluid">
-      <label class="mb-2 block " for="minmax-buttons">{{'motivo'| translate}}</label>
-      <p-dropdown class="p-inputtext-sm" appendTo="body" [options]="motivos"
-        placeholder="Selecione o motivo"></p-dropdown>
-    </div>
-  </div>
-  <ng-template pTemplate="footer">
-    <div class="col-12">
-      <p-button icon="pi pi-check" (click)="dialogIncluirVisible = false" label="Salvar"
-        styleClass="p-button-text"></p-button>
-    </div>
-  </ng-template>
-</p-dialog>
-
-<p-dialog header="Biometria" [(visible)]="dialogFingerVisible" [style]="{width: '40vw'}" [modal]="true"
-  [breakpoints]="{ '1238px': '60vw','1000px':'70vw','728px':'80vw' ,'627px':'95vw'}">
-  <div class="col-12 flex justify-content-center">
-
-    <div class=" col-6" [ngClass]="{'biometric_hand_e' : !(sm$| async),'biometric_hand_e_mobile' : (sm$| async)}">
-      <div class=" finger {{ empregadoDigital.e1}}"
-        [ngClass]="{'finger_1e' :  !(sm$| async),'finger_1e_mobile' : (sm$| async)}"
-        (click)="confirmarEntregaEpis('e1')">
-        <img *ngIf="empregadoDigital.e1" src="/assets/img/digital/finger1e{{empregadoDigital.e1}}.png" alt="">
-      </div>
-      <div class=" finger {{ empregadoDigital.e2}} "
-        [ngClass]="{'finger_2e' :  !(sm$| async),'finger_2e_mobile' : (sm$| async)}"
-        (click)="confirmarEntregaEpis('e2')">
-        <img *ngIf="empregadoDigital.e2" src="/assets/img/digital/finger2e{{empregadoDigital.e2}}.png" alt="">
-      </div>
-      <div class="finger {{ empregadoDigital.e3}}"
-        [ngClass]="{'finger_3e' :  !(sm$| async),'finger_3e_mobile' :(sm$| async)}"
-        (click)="confirmarEntregaEpis('e3')">
-        <img *ngIf="empregadoDigital.e3" src="/assets/img/digital/finger3e{{empregadoDigital.e3}}.png" alt="">
-      </div>
-      <div class="finger {{ empregadoDigital.e4}}"
-        [ngClass]="{'finger_4e' : !(sm$| async),'finger_4e_mobile' : (sm$| async)}"
-        (click)="confirmarEntregaEpis('e4')">
-        <img *ngIf="empregadoDigital.e4" src="/assets/img/digital/finger4e{{empregadoDigital.e4}}.png" alt="">
-      </div>
-      <div class="finger {{ empregadoDigital.e5}}"
-        [ngClass]="{'finger_5e' : !(sm$| async),'finger_5e_mobile' : (sm$| async)}"
-        (click)="confirmarEntregaEpis('e5')">
-        <img *ngIf="empregadoDigital.e5" src="/assets/img/digital/finger5e{{empregadoDigital.e3}}.png" alt="">
-      </div>
-    </div>
-    <div class="col-6" [ngClass]="{'biometric_hand_d' : !(sm$| async),'biometric_hand_d_mobile' : (sm$| async)}">
-      <div class="finger {{ empregadoDigital.d1}}"
-        [ngClass]="{'finger_1d' : !(sm$| async),'finger_1d_mobile ' : (sm$| async)}"
-        (click)="confirmarEntregaEpis('d1')">
-        <img src="/assets/img/digital/finger1d{{empregadoDigital.d1}}.png" alt="">
-      </div>
-      <div class="finger  {{empregadoDigital.d2}}"
-        [ngClass]="{'finger_2d' : !(sm$| async),'finger_2d_mobile' : (sm$| async)}"
-        (click)="confirmarEntregaEpis('d2')">
-        <img src="/assets/img/digital/finger2d{{empregadoDigital.d2}}.png" alt="">
-      </div>
-      <div class="finger {{empregadoDigital.d3}}"
-        [ngClass]="{'finger_3d' : !(sm$| async),'finger_3d_mobile' : (sm$| async)}"
-        (click)="confirmarEntregaEpis('d3')">
-        <img src="/assets/img/digital/finger3d{{empregadoDigital.d3}}.png" alt="">
-      </div>
-      <div class="finger {{ empregadoDigital.d4}}"
-        [ngClass]="{'finger_4d' : !(sm$| async),'finger_4d_mobile' : (sm$| async)}"
-        (click)="confirmarEntregaEpis('d4')">
-        <img src="/assets/img/digital/finger4d{{empregadoDigital.d4}}.png" alt="">
-      </div>
-      <div class="finger {{ empregadoDigital.d5}}"
-        [ngClass]="{'finger_5d' : !(sm$| async),'finger_5d_mobile' : (sm$| async)}"
-        (click)="confirmarEntregaEpis('d5')">
-        <img src="/assets/img/digital/finger5d{{empregadoDigital.d5}}.png" alt="">
-      </div>
-    </div>
-  </div>
-</p-dialog>
+<app-cadastro-biometrico [idEmpresa]="entregaFilter.idEmpresa" [idEmpregado]="entregaFilter.idEmpregado"
+  [visible]="dialogFingerVisible" (onVisibleChange)="changeFingerVisibility($event)"></app-cadastro-biometrico>

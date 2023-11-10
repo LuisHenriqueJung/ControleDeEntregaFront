@@ -2,8 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, ObservableLike } from 'rxjs';
 import { environment } from 'src/enviroments/enviroments';
-import { EmpregadoFilter } from '../model/empregado';
 import { EntregaFilter } from '../model/entrega';
+import { DataPrevistaItem } from '../model/item';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,9 @@ export class EmpregadosService {
   statusEmpregadoUrl = `${environment.apiUrl}/statusEmpregado/list?searchValue=`
   entregasUrl = `${environment.apiUrl}/controleEntrega/entregas/`
   digitalInfoUrl = `${environment.apiUrl}/empregado/digital/info/`
+  itensUrl = `${environment.apiUrl}/produto/list`
+  dataPrevistaUrl = `${environment.apiUrl}/controleEntrega/dataPrevista`
+  motivosDeTrocaUrl = `${environment.apiUrl}/motivo/list`
 
   lancamentosUrl = 'http://10.1.20.119:3000/empregado';
   constructor(private http: HttpClient) { }
@@ -64,5 +67,19 @@ export class EmpregadosService {
 
   getDigitalEmpregadoByIdEmpresaAndIdEmpregado(idEmpresa: number, idEmpregado: number):Observable<any>{
     return this.http.get(`${this.digitalInfoUrl}${idEmpresa}/${idEmpregado}`)
+  }
+
+  searchItem(query:string):Observable<any>{
+    let params = new  HttpParams()
+    params = params.set('searchValue',query)
+    return this.http.get(`${this.itensUrl}`,{params})
+  }
+
+  getDataPrevistaItem(body: DataPrevistaItem):Observable<any>{
+    return this.http.post(`${this.dataPrevistaUrl}`,body)
+  }
+
+  getMotivosDeTroca():Observable<any>{
+    return this.http.get(this.motivosDeTrocaUrl)
   }
 }
