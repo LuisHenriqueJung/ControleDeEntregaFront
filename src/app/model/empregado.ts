@@ -38,3 +38,9 @@ export class EmpregadosDigital{
   d4!: string
   d5!: string
 }
+
+export interface Finger{
+  name: string
+  status: string
+  motivo: string
+}

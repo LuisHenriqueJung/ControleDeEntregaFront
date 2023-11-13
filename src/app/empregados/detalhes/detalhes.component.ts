@@ -5,7 +5,7 @@ import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { EpiService } from 'src/app/epi/epi.service';
 import { SlideInOutAnimation } from 'src/app/animations/animations';
 import { media } from 'src/app/app.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { WebAppInterface } from 'src/app/model/android';
 import { Entrega, EntregaFilter } from 'src/app/model/entrega';
@@ -30,11 +30,12 @@ export class DetalhesComponent implements OnInit {
     private empregadoService: EmpregadosService,
     private route: ActivatedRoute,
     private _sanitizer: DomSanitizer,
+    private router: Router
   ) {
 
   }
   ngOnInit(): void {
-    this.route.params.subscribe( params =>{
+    this.route.queryParams.subscribe( params =>{
       this.userLoading = true
       this.episLoading = true
       let idEmpregado = params['idEmpregado']
@@ -110,9 +111,8 @@ export class DetalhesComponent implements OnInit {
     this.episLoading = true
     this.getEmpregadosEpis(this.entregaFilter)
   }
-  changeIncludeVisibility(visible: boolean){
-    this.dialogIncluirVisible = visible
-  }
+  include(){
+    this.router.navigate(['novo-item'],{queryParams: {idEmpresa: this.entregaFilter.idEmpresa,idEmpregado: this.entregaFilter.idEmpregado},relativeTo:this.route})  }
 
   changeFingerVisibility(visible: boolean){
     this.dialogFingerVisible = visible

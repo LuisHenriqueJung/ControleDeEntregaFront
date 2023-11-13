@@ -12,11 +12,14 @@ export class EmpregadosService {
 
   empregadosUrl = `${environment.apiUrl}/empregado/`
   statusEmpregadoUrl = `${environment.apiUrl}/statusEmpregado/list?searchValue=`
-  entregasUrl = `${environment.apiUrl}/controleEntrega/entregas/`
+  entregasUrl = `${environment.apiUrl}/controleEntrega/entrega`
   digitalInfoUrl = `${environment.apiUrl}/empregado/digital/info/`
   itensUrl = `${environment.apiUrl}/produto/list`
   dataPrevistaUrl = `${environment.apiUrl}/controleEntrega/dataPrevista`
-  motivosDeTrocaUrl = `${environment.apiUrl}/motivo/list`
+  epiMotivosDeTrocaUrl = `${environment.apiUrl}/motivo/epi/list`
+  materialMotivosUrl = `${environment.apiUrl}/motivo/material/list`
+
+  caEpiUrl = `${environment.apiUrl}/caEpi/list`
 
   lancamentosUrl = 'http://10.1.20.119:3000/empregado';
   constructor(private http: HttpClient) { }
@@ -62,7 +65,7 @@ export class EmpregadosService {
     params = params.set('page', filter.page)
     params = params.set('size', filter.size)
     params = params.set('sort','nome,desc')
-    return this.http.get(`${this.entregasUrl}${filter.idEmpresa}/${filter.idEmpregado}?`,{params})
+    return this.http.get(`${this.entregasUrl}/${filter.idEmpresa}/${filter.idEmpregado}?`,{params})
   }
 
   getDigitalEmpregadoByIdEmpresaAndIdEmpregado(idEmpresa: number, idEmpregado: number):Observable<any>{
@@ -79,7 +82,19 @@ export class EmpregadosService {
     return this.http.post(`${this.dataPrevistaUrl}`,body)
   }
 
-  getMotivosDeTroca():Observable<any>{
-    return this.http.get(this.motivosDeTrocaUrl)
+  getMotivosDeTrocaEpi():Observable<any>{
+    return this.http.get(this.epiMotivosDeTrocaUrl)
+  }
+  getMotivosDeTrocaMAterial():Observable<any>{
+    return this.http.get(this.materialMotivosUrl)
+  }
+  getCaEpi(idProduto: number):Observable<any>{
+    let params = new HttpParams()
+    params = params.append('idProduto',idProduto)
+    return this.http.get(this.caEpiUrl,{params})
+  }
+
+  saveEntrega(body: any): Observable<any>{
+    return this.http.post(`${this.entregasUrl}`,body)
   }
 }

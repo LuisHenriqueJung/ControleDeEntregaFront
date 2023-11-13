@@ -127,7 +127,7 @@ export class EmpregadosComponent implements OnInit {
 
   employerSelected(event: any) {
     this.filtersVisible = false
-    this.router.navigate([`empregado/${this.empresaFilterSelectedId}/${event.value!.id}`], { relativeTo: this.route })
+    this.router.navigate([`empregado`], { relativeTo: this.route ,queryParams: {idEmpresa:this.empresaFilterSelectedId,idEmpregado: event.value!.id }})
   }
 
   onPageChange($event: any) {

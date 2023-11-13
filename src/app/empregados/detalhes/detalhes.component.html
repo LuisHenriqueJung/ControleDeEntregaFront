@@ -24,8 +24,7 @@
       </div>
     </div>
     <div class="grid col-12 md:col-6 justify-content-end">
-      <p-button [text]="true" [raised]="true" (onClick)="dialogFingerVisible = true"
-        label="{{'cadastro biometrico'| translate}}"></p-button>
+      <app-dropdown-biometria [idEmpresa]="entregaFilter.idEmpresa" [idEmpregado]="entregaFilter.idEmpregado"></app-dropdown-biometria>
     </div>
   </div>
 </div>
@@ -34,8 +33,7 @@
     <h5 class="card-title">{{'troca de epis'| translate}}</h5>
     <div class="md:flex flex-wrap-reverse">
       <div class="col-12 md:col-8  gap-1  flex p-fluid" *ngIf="(lg$ | async) || (xl$| async) || (xl2$ | async)">
-        <p-button size="small" label="{{'incluir'| translate}}" severity="success" icon="pi pi-plus"
-          (onClick)="dialogIncluirVisible = true"></p-button>
+        <p-button size="small" label="{{'incluir'| translate}}" severity="success"  icon="pi pi-plus"  (onClick)="include()"></p-button>
         <p-button size="small" label="{{'anular'| translate}}" severity="danger" icon="pi pi-trash"></p-button>
         <p-button size="small" label="{{'confirmar'| translate}}" icon="pi pi-angle-double-up"
           (onClick)="confirmarEntregaEpis('')"></p-button>
@@ -43,7 +41,7 @@
         <p-button size="small" label="{{'devolver'| translate}}" icon="pi pi-angle-double-down"></p-button>
       </div>
       <div class="col-12 md:col-8  gap-1 flex  p-fluid" *ngIf="(sm$  | async) || (md$ |async)">
-        <p-button size="small" severity="success" icon="pi pi-plus" (onClick)="dialogIncluirVisible = true"></p-button>
+        <p-button size="small" severity="success" icon="pi pi-plus" (onClick)="include()"></p-button>
         <p-button size="small" severity="danger" icon="pi pi-trash"></p-button>
         <p-button size="small" icon="pi pi-angle-double-up" (onClick)="confirmarEntregaEpis('')"></p-button>
         <p-button size="small" icon="pi pi-refresh"></p-button>
@@ -161,9 +159,5 @@
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>
 
-<app-inclusao-item [idEmpresa]="entregaFilter.idEmpresa" [idEmpregado]="entregaFilter.idEmpregado" [visible]="dialogIncluirVisible"
-  (onVisibleChange)="changeIncludeVisibility($event)"></app-inclusao-item>
-
-<app-cadastro-biometrico [idEmpresa]="entregaFilter.idEmpresa" [idEmpregado]="entregaFilter.idEmpregado"
-  [visible]="dialogFingerVisible" (onVisibleChange)="changeFingerVisibility($event)"></app-cadastro-biometrico>
