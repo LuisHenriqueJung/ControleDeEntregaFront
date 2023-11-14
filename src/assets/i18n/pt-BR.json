@@ -46,6 +46,7 @@
     "campos invalidos":"Existem campos inválidos no formulário!",
     "verifique os dados":"Verifique os dados"
   },
+  "DADOS_INCORRETOS":"Email e/ou senha inválidos!",
   "primeng": {
     "startsWith": "Começa com",
     "contains": "Contém",

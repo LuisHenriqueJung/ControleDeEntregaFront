@@ -25,7 +25,7 @@
       </div>
       <div *ngIf="showSizesBox" class="md:col-2 p-fluid" [ngClass]="{'col-6':showSizesBox ,'col-12' : !showSizesBox}">
         <label class="mb-2 block " for="minmax-buttons">{{'tamanho'| translate}}</label>
-        <p-dropdown [disabled]="sizesBoxDisabled" formControlName="tamanho" class="p-inputtext-sm" appendTo="body"
+        <p-dropdown  formControlName="tamanho" class="p-inputtext-sm" appendTo="body"
           optionLabel="tamanho" [options]="tamanhos" placeholder="Selecione o motivo"></p-dropdown>
         <app-message [control]="itemForm.get('tamanho')" error="required" text="{{'requerido'| translate}}">
         </app-message>

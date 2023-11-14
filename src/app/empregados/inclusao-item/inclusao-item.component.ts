@@ -58,7 +58,6 @@ export class InclusaoItemComponent implements OnInit {
   descricaoVisible: boolean = false
   showCaEpiCombo = false
   caEpiList: any[] = []
-  sizesBoxDisabled = false
 
   initForms() {
     this.itemForm = this.formBuilder.group({
@@ -129,10 +128,10 @@ export class InclusaoItemComponent implements OnInit {
 
   setCaEpi(caEpi: any) {
     this.itemForm.get(ItemFields.CA_EPI)?.setValue(caEpi)
-    this.sizesBoxDisabled = false
+    this.itemForm.get(ItemFields.TAMANHO)?.enable()
     if (caEpi.tamanho) {
       this.itemForm.get(ItemFields.TAMANHO)?.setValue(caEpi.tamanho)
-      this.sizesBoxDisabled = true
+      this.itemForm.get(ItemFields.TAMANHO)?.disable()
     }
   }
 
@@ -198,6 +197,7 @@ export class InclusaoItemComponent implements OnInit {
       this.itemForm.get(ItemFields.DESCRICAO_MOTIVO)?.removeValidators(Validators.required)
     }
   }
+
   visibleChangeFunction() {
     this.location.back()
   }
